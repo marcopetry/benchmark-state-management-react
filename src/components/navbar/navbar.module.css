@@ -1,0 +1,28 @@
+.navbar {
+  height: 50px;
+  background-color: black;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  ul {
+    padding: 12px;
+    margin: 0;
+    list-style: none;
+  }
+
+  li {
+    display: inline-flex;
+    margin-left: 24px;
+    color: white;
+  }
+
+  a {
+    color: white;
+    font-weight: 900;
+    text-decoration: none;
+  }
+}

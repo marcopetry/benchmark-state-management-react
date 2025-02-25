@@ -1,0 +1,25 @@
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  color: white;
+  transition: background 0.3s;
+}
+
+.btn-success {
+  background: #27ae60;
+  color: white;
+}
+
+.btn-error {
+  background-color: #dc3545; /* Vermelho */
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}

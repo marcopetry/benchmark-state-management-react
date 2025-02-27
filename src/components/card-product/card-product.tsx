@@ -1,7 +1,5 @@
 import { ReactNode } from "@tanstack/react-router";
-import { Product } from "../../types/product.types";
 import styles from "./card-product.module.css";
-import { Button } from "../button";
 
 type CardProductProps = {
   productImage: ReactNode;
@@ -9,13 +7,13 @@ type CardProductProps = {
   productDescription: ReactNode;
   productPrice: ReactNode;
   productRating: ReactNode;
+  children: ReactNode;
   onClick: VoidFunction;
-  onClickAction: VoidFunction;
 };
 
 export const CardProduct = ({
   onClick,
-  onClickAction,
+  children,
   productDescription,
   productImage,
   productPrice,
@@ -29,9 +27,7 @@ export const CardProduct = ({
       {productDescription}
       {productPrice}
 
-      <Button onClick={() => onClickAction()} variant="success">
-        Adicionar ao Carrinho
-      </Button>
+      {children}
 
       {productRating}
     </div>

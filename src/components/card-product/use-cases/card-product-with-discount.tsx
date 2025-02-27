@@ -1,4 +1,5 @@
 import { Product } from "../../../types/product.types";
+import { Button } from "../../button";
 import { CardProduct } from "../card-product";
 import { CardProductDescription } from "../card-product-description";
 import { CardProductImage } from "../card-product-image";
@@ -12,9 +13,6 @@ export const CardProductWithDiscount = ({ product }: { product: Product }) => {
       onClick={() => {
         console.log(product);
       }}
-      onClickAction={() => {
-        console.log(product);
-      }}
       productImage={<CardProductImage product={product} />}
       productTitle={<CardProductTitle product={product} />}
       productDescription={<CardProductDescription product={product} />}
@@ -26,6 +24,13 @@ export const CardProductWithDiscount = ({ product }: { product: Product }) => {
         </>
       }
       productRating={<CardProductRating product={product} />}
-    />
+    >
+      <Button
+        onClick={() => console.log("Direto pro checkout")}
+        variant="success"
+      >
+        Comprar agora
+      </Button>
+    </CardProduct>
   );
 };

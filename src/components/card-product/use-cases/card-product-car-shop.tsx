@@ -1,4 +1,5 @@
 import { Product } from "../../../types/product.types";
+import { Button } from "../../button";
 import { CardProduct } from "../card-product";
 import { CardProductPrice } from "../card-product-price";
 import { CardProductTitle } from "../card-product-title";
@@ -9,9 +10,6 @@ export const CardProductCarShop = ({ product }: { product: Product }) => {
       onClick={() => {
         console.log(product);
       }}
-      onClickAction={() => {
-        console.log(product);
-      }}
       productTitle={<CardProductTitle product={product} />}
       productPrice={<CardProductPrice product={product} />}
       productImage={
@@ -19,6 +17,10 @@ export const CardProductCarShop = ({ product }: { product: Product }) => {
       }
       productDescription={null}
       productRating={null}
-    />
+    >
+      <Button onClick={() => console.log("remove do carrinho")} variant="error">
+        Remover do carrinho
+      </Button>
+    </CardProduct>
   );
 };

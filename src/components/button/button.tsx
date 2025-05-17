@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import styles from "./button.module.css";
 
-type ButtonVariant = "success" | "error";
+type ButtonVariant = "success" | "error" | "outlined";
 
 interface ButtonProps {
   children: ReactNode;
@@ -11,7 +11,13 @@ interface ButtonProps {
 }
 
 export const Button = ({ children, variant, onClick }: ButtonProps) => {
-  const buttonClass = variant === "success" ? "btn-success" : "btn-error";
+  const buttonClasses: Record<ButtonVariant, string> = {
+    success: "btn-success",
+    error: "btn-error",
+    outlined: "btn-outlined",
+  };
+
+  const buttonClass = buttonClasses[variant];
 
   return (
     <button

@@ -1,9 +1,14 @@
-import { Layout } from "../../components/layout";
+import { useProducts } from "@/api/use-product";
+import { CardProductDefault } from "@/components/card-product/use-cases";
+import { Layout } from "@/components/layout";
 
 export const ContextApi = () => {
+  const { products } = useProducts();
   return (
     <Layout>
-      <h1>Context API</h1>
+      {products.map((product) => (
+        <CardProductDefault key={product.id} product={product} />
+      ))}
     </Layout>
   );
 };

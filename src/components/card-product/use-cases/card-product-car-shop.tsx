@@ -1,8 +1,8 @@
-import { Product } from "../../../types/product.types";
-import { Button } from "../../button";
+import { Product } from "@/types/product.types";
 import { CardProduct } from "../card-product";
-import { CardProductPrice } from "../card-product-price";
 import { CardProductTitle } from "../card-product-title";
+import { CardProductPrice } from "../card-product-price";
+import { Button } from "@/components/button";
 
 export const CardProductCarShop = ({ product }: { product: Product }) => {
   return (

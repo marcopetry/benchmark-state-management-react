@@ -1,16 +1,11 @@
-import { useProducts } from "../api/use-product";
-import { CardProduct } from "../components/card-product";
-import { CardProductDescription } from "../components/card-product/card-product-description";
-import { CardProductImage } from "../components/card-product/card-product-image";
-import { CardProductPrice } from "../components/card-product/card-product-price";
-import { CardProductRating } from "../components/card-product/card-product-rating";
-import { CardProductTitle } from "../components/card-product/card-product-title";
+import { useProducts } from "@/api/use-product";
+
 import {
   CardProductCarShop,
   CardProductDefault,
   CardProductWithDiscount,
-} from "../components/card-product/use-cases";
-import { Layout } from "../components/layout";
+} from "@/components/card-product/use-cases";
+import { Layout } from "@/components/layout";
 
 export const ProductList = () => {
   const { products } = useProducts();

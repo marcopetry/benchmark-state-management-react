@@ -1,11 +1,11 @@
-import { Product } from "../../../types/product.types";
-import { Button } from "../../button";
+import { Product } from "@/types/product.types";
 import { CardProduct } from "../card-product";
-import { CardProductDescription } from "../card-product-description";
+import { CardProductTitle } from "../card-product-title";
 import { CardProductImage } from "../card-product-image";
+import { CardProductDescription } from "../card-product-description";
 import { CardProductPrice } from "../card-product-price";
 import { CardProductRating } from "../card-product-rating";
-import { CardProductTitle } from "../card-product-title";
+import { Button } from "@/components/button";
 
 export const CardProductDefault = ({ product }: { product: Product }) => {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchMockData } from "./api";
-import { Product } from "../types/product.types";
+import { Product } from "@/types/product.types";
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);

@@ -1,4 +1,4 @@
-import { Product } from "../../types/product.types";
+import { Product } from "@/types/product.types";
 import styles from "./card-product.module.css";
 
 function renderStars(rating: number) {

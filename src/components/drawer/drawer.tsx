@@ -5,8 +5,8 @@ import type { Product } from "@/types/product.types"; // ajuste se estiver em ou
 
 type DrawerProps = {
   products: Product[];
-  onClose?: () => void;
-  onCheckout?: () => void;
+  onClose: () => void;
+  onCheckout: () => void;
 };
 
 export const Drawer: React.FC<DrawerProps> = ({
@@ -14,7 +14,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   onClose,
   onCheckout,
 }) => {
-  const total = products.reduce((sum, p) => sum + p.price * 1, 0); // default quantity = 1
+  const total = products.reduce((sum, p) => sum + p.price * 1, 0);
 
   const handleClose = () => {
     onClose?.();

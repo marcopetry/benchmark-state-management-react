@@ -1,9 +1,5 @@
 .layout {
   margin-top: 100px;
   margin-bottom: 100px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 20px;
   width: 100%;
-  justify-items: center;
 }

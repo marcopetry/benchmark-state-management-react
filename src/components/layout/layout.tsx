@@ -1,3 +1,4 @@
+import { Navbar } from "../navbar";
 import styles from "./layout.module.css";
 import { ReactNode } from "react";
 
@@ -6,5 +7,10 @@ type LayoutProps = {
 };
 
 export const Layout = ({ children }: LayoutProps) => {
-  return <main className={styles.layout}>{children}</main>;
+  return (
+    <div>
+      <Navbar />
+      <main className={styles.layout}>{children}</main>;
+    </div>
+  );
 };

@@ -12,7 +12,7 @@ export const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/context-api" title="Sobre nós">
+          <Link to="/context-api/products" title="Sobre nós">
             Context Api
           </Link>
         </li>

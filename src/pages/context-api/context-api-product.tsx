@@ -10,9 +10,9 @@ type ContextApiProductProps = {
 
 export const ContextApiProduct = ({ product }: ContextApiProductProps) => {
   const navigate = useNavigate();
-  const { addToCart, removeFromCart, getProductIsCart } = useCartActions();
+  const { addToCart, removeFromCart, getProductInCart } = useCartActions();
 
-  const productIsInCart = getProductIsCart(product.id);
+  const productIsInCart = !!getProductInCart(product.id);
 
   return (
     <CardProductDefault

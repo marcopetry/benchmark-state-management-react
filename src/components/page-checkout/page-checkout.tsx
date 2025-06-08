@@ -1,8 +1,8 @@
-import { Product } from "@/types/product.types";
 import styles from "./page-checkout.module.css";
+import { CartItem } from "@/libs/context-api/context-api.types";
 
 type PageCheckoutProps = {
-  products: (Product & { quantity: number })[];
+  products: CartItem[];
   onSubmit: () => void;
 };
 

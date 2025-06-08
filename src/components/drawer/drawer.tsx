@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import styles from "./drawer.module.css";
 import CheckoutCard from "../checkout-product/checkout-product";
-import type { Product } from "@/types/product.types";
+import { CartItem } from "@/libs/context-api/context-api.types";
+import { Product } from "@/types/product.types";
 
 type DrawerProps = {
-  products: Product[];
+  products: CartItem[];
   onClose: () => void;
   onCheckout: () => void;
+  increaseQuantity: (product: Product) => void;
+  decreaseQuantity: (product: Product) => void;
 };
 
 export const Drawer: React.FC<DrawerProps> = ({
   products,
   onClose,
   onCheckout,
+  decreaseQuantity,
+  increaseQuantity,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -58,8 +63,9 @@ export const Drawer: React.FC<DrawerProps> = ({
               {products.map((product) => (
                 <CheckoutCard
                   key={product.id}
-                  product={{ ...product, quantity: 1 }}
-                  onQuantityChange={() => {}}
+                  product={product}
+                  decreaseQuantity={() => decreaseQuantity(product)}
+                  increaseQuantity={() => increaseQuantity(product)}
                 />
               ))}
             </ul>
@@ -70,7 +76,13 @@ export const Drawer: React.FC<DrawerProps> = ({
               <span>Total:</span>
               <span>R$ {total.toFixed(2)}</span>
             </div>
-            <button onClick={onCheckout} className={styles.checkoutButton}>
+            <button
+              onClick={() => {
+                onCheckout();
+                handleClose();
+              }}
+              className={styles.checkoutButton}
+            >
               Finalizar Compra
             </button>
           </div>

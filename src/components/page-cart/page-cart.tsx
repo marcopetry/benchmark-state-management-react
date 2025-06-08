@@ -4,13 +4,15 @@ import { Product } from "@/types/product.types";
 
 type PageCartProps = {
   products: (Product & { quantity: number })[];
-  onQuantityChange: (productId: number, newQuantity: number) => void;
+  increaseQuantity: (product: Product) => void;
+  decreaseQuantity: (product: Product) => void;
   onCheckout: () => void;
 };
 
 export const PageCart: React.FC<PageCartProps> = ({
   products,
-  onQuantityChange,
+  decreaseQuantity,
+  increaseQuantity,
   onCheckout,
 }) => {
   const total = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
@@ -24,9 +26,8 @@ export const PageCart: React.FC<PageCartProps> = ({
             <CheckoutCard
               key={product.id}
               product={product}
-              onQuantityChange={(newQuantity) =>
-                onQuantityChange(product.id, newQuantity)
-              }
+              decreaseQuantity={() => decreaseQuantity(product)}
+              increaseQuantity={() => increaseQuantity(product)}
             />
           ))}
         </ul>

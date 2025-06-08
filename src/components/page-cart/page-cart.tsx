@@ -2,13 +2,13 @@ import styles from "./page-cart.module.css";
 import CheckoutCard from "../checkout-product/checkout-product";
 import { Product } from "@/types/product.types";
 
-type CartPageProps = {
+type PageCartProps = {
   products: (Product & { quantity: number })[];
   onQuantityChange: (productId: number, newQuantity: number) => void;
   onCheckout: () => void;
 };
 
-export const CartPage: React.FC<CartPageProps> = ({
+export const PageCart: React.FC<PageCartProps> = ({
   products,
   onQuantityChange,
   onCheckout,

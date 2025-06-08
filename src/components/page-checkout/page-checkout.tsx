@@ -1,12 +1,12 @@
 import { Product } from "@/types/product.types";
 import styles from "./page-checkout.module.css";
 
-type CheckoutPageProps = {
+type PageCheckoutProps = {
   products: (Product & { quantity: number })[];
   onSubmit: () => void;
 };
 
-export const CheckoutPage: React.FC<CheckoutPageProps> = ({
+export const PageCheckout: React.FC<PageCheckoutProps> = ({
   products,
   onSubmit,
 }) => {

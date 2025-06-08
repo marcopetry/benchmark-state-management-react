@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./drawer.module.css";
 import CheckoutCard from "../checkout-product/checkout-product";
-import type { Product } from "@/types/product.types"; // ajuste se estiver em outro lugar
+import type { Product } from "@/types/product.types";
 
 type DrawerProps = {
   products: Product[];
@@ -14,10 +14,13 @@ export const Drawer: React.FC<DrawerProps> = ({
   onClose,
   onCheckout,
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
   const total = products.reduce((sum, p) => sum + p.price * 1, 0);
 
   const handleClose = () => {
-    onClose?.();
+    setIsVisible(false);
+    setTimeout(() => onClose?.(), 300); // esperar a animação
   };
 
   useEffect(() => {
@@ -27,6 +30,7 @@ export const Drawer: React.FC<DrawerProps> = ({
 
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", handleEscape);
+    setTimeout(() => setIsVisible(true), 10); // trigger da transição
 
     return () => {
       document.body.style.overflow = "";
@@ -35,8 +39,14 @@ export const Drawer: React.FC<DrawerProps> = ({
   }, []);
 
   return (
-    <div className={styles.overlay} onClick={handleClose}>
-      <div className={styles.drawer} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={`${styles.overlay} ${isVisible ? styles.open : ""}`}
+      onClick={handleClose}
+    >
+      <div
+        className={`${styles.drawer} ${isVisible ? styles.open : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button onClick={handleClose} className={styles.closeButton}>
           ×
         </button>

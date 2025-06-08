@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchMockData } from "./api";
 import { Product } from "@/types/product.types";
 
-export const useProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+type UseProductsParams = {
+  setProducts: (products: Product[]) => void;
+};
+
+export const useProducts = ({ setProducts }: UseProductsParams) => {
   useEffect(() => {
     const fetch = async () => {
       const data = await fetchMockData();
@@ -12,6 +15,4 @@ export const useProducts = () => {
 
     fetch();
   }, []);
-
-  return { products };
 };

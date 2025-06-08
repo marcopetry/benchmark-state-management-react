@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./drawer.module.css";
 import CheckoutCard from "../checkout-product/checkout-product";
-import { CartItem } from "@/libs/context-api/context-api.types";
 import { Product } from "@/types/product.types";
+import { CartItem } from "@/types/cart-item";
 
 type DrawerProps = {
   products: CartItem[];

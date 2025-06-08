@@ -1,4 +1,4 @@
-import { CartItem } from "@/libs/context-api/context-api.types";
+import { CartItem } from "@/types/cart-item";
 import styles from "./checkout-product.module.css";
 
 type CheckoutCardProps = {

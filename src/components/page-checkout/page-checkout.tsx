@@ -1,5 +1,5 @@
+import { CartItem } from "@/types/cart-item";
 import styles from "./page-checkout.module.css";
-import { CartItem } from "@/libs/context-api/context-api.types";
 
 type PageCheckoutProps = {
   products: CartItem[];

@@ -3,10 +3,15 @@ import styles from "./checkout-product.module.css";
 
 type CheckoutCardProps = {
   product: CartItem;
-  onQuantityChange: (productId: number, newQuantity: number) => void;
+  increaseQuantity: VoidFunction;
+  decreaseQuantity: VoidFunction;
 };
 
-export const CheckoutCard: React.FC<CheckoutCardProps> = ({ product }) => {
+export const CheckoutCard: React.FC<CheckoutCardProps> = ({
+  product,
+  decreaseQuantity,
+  increaseQuantity,
+}) => {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -20,9 +25,9 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = ({ product }) => {
 
       <div className={styles.controls}>
         <div className={styles.qtyControl}>
-          <button>-</button>
+          <button onClick={decreaseQuantity}>-</button>
           <span>{product.quantity}</span>
-          <button>+</button>
+          <button onClick={increaseQuantity}>+</button>
         </div>
         <div className={styles.total}>
           R$ {(product.price * product.quantity).toFixed(2)}

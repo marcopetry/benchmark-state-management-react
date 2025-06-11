@@ -5,6 +5,14 @@ import {
   ContextApiPageProductDetails,
   ContextApiPageProducts,
 } from "@/pages/context-api";
+
+import {
+  ZustandPageProducts,
+  ZustandPageProductDetails,
+  ZustandPageCart,
+  ZustandPageCheckout,
+} from "@/pages/zustand";
+
 import { HomePage } from "@/pages/home/home-page";
 import {
   createRootRoute,
@@ -12,6 +20,7 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
+import { Zustand } from "@/libs/zustand";
 
 const rootRoute = createRootRoute({ component: Outlet });
 
@@ -25,6 +34,12 @@ const contextRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "react-context-api",
   component: ContextApi,
+});
+
+const zustandRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "zustand",
+  component: Zustand,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -49,6 +64,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: ContextApiPageCheckout,
       getParentRoute: () => contextRoute,
+    }),
+  ]),
+  zustandRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: ZustandPageProducts,
+      getParentRoute: () => zustandRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: ZustandPageProductDetails,
+      getParentRoute: () => zustandRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: ZustandPageCart,
+      getParentRoute: () => zustandRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: ZustandPageCheckout,
+      getParentRoute: () => zustandRoute,
     }),
   ]),
 ]);

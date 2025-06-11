@@ -32,7 +32,7 @@ export const ContextApiDrawer = () => {
     <Drawer
       products={state.items}
       onClose={() => setIsOpen(false)}
-      onCheckout={() => navigate({ to: "/context-api/checkout" })}
+      onCheckout={() => navigate({ to: "/react-context-api/checkout" })}
       decreaseQuantity={decreaseQuantity}
       increaseQuantity={increaseQuantity}
     />

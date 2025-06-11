@@ -1,4 +1,7 @@
 import { ContextApi } from "@/libs/context-api";
+import { Zustand } from "@/libs/zustand";
+import { Jotai } from "@/libs/jotai";
+
 import {
   ContextApiPageCart,
   ContextApiPageCheckout,
@@ -13,6 +16,13 @@ import {
   ZustandPageCheckout,
 } from "@/pages/zustand";
 
+import {
+  JotaiPageProducts,
+  JotaiPageProductDetails,
+  JotaiPageCart,
+  JotaiPageCheckout,
+} from "@/pages/jotai";
+
 import { HomePage } from "@/pages/home/home-page";
 import {
   createRootRoute,
@@ -20,7 +30,6 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
-import { Zustand } from "@/libs/zustand";
 
 const rootRoute = createRootRoute({ component: Outlet });
 
@@ -40,6 +49,12 @@ const zustandRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "zustand",
   component: Zustand,
+});
+
+const jotaiRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "jotai",
+  component: Jotai,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -86,6 +101,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: ZustandPageCheckout,
       getParentRoute: () => zustandRoute,
+    }),
+  ]),
+  jotaiRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: JotaiPageProducts,
+      getParentRoute: () => jotaiRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: JotaiPageProductDetails,
+      getParentRoute: () => jotaiRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: JotaiPageCart,
+      getParentRoute: () => jotaiRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: JotaiPageCheckout,
+      getParentRoute: () => jotaiRoute,
     }),
   ]),
 ]);

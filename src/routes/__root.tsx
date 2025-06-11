@@ -23,6 +23,14 @@ import {
   JotaiPageCheckout,
 } from "@/pages/jotai";
 
+import { Valtio } from "@/libs/valtio";
+import {
+  ValtioPageProducts,
+  ValtioPageProductDetails,
+  ValtioPageCart,
+  ValtioPageCheckout,
+} from "@/pages/valtio";
+
 import { HomePage } from "@/pages/home/home-page";
 import {
   createRootRoute,
@@ -55,6 +63,12 @@ const jotaiRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "jotai",
   component: Jotai,
+});
+
+const valtioRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "valtio",
+  component: Valtio,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -123,6 +137,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: JotaiPageCheckout,
       getParentRoute: () => jotaiRoute,
+    }),
+  ]),
+  valtioRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: ValtioPageProducts,
+      getParentRoute: () => valtioRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: ValtioPageProductDetails,
+      getParentRoute: () => valtioRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: ValtioPageCart,
+      getParentRoute: () => valtioRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: ValtioPageCheckout,
+      getParentRoute: () => valtioRoute,
     }),
   ]),
 ]);

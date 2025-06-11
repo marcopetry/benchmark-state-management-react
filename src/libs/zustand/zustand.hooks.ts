@@ -1,19 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Product } from "@/types/product.types";
-import { CartItem } from "@/types/cart-item";
+import { CartItem } from "@/types/cart-item.types";
+import { CartState } from "@/types/cart-state.types";
 
 export const LOCAL_STORAGE_KEY = "cart";
-
-interface CartState {
-  items: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
-  removeFromCart: (product: Product) => void;
-  increaseQuantity: (product: Product) => void;
-  decreaseQuantity: (product: Product) => void;
-  clearCart: () => void;
-  getProductInCart: (id: number) => CartItem | undefined;
-}
 
 export const useCartStore = create<CartState>()(
   persist(

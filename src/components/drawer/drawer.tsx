@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./drawer.module.css";
 import CheckoutCard from "../checkout-product/checkout-product";
 import { Product } from "@/types/product.types";
-import { CartItem } from "@/types/cart-item";
+import { CartItem } from "@/types/cart-item.types";
 
 type DrawerProps = {
   products: CartItem[];

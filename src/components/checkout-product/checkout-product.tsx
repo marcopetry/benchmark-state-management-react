@@ -1,4 +1,4 @@
-import { CartItem } from "@/types/cart-item";
+import { CartItem } from "@/types/cart-item.types";
 import styles from "./checkout-product.module.css";
 
 type CheckoutCardProps = {

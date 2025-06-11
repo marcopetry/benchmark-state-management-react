@@ -1,4 +1,4 @@
-import { CartItem } from "@/types/cart-item";
+import { CartItem } from "@/types/cart-item.types";
 import { Product } from "@/types/product.types";
 
 export type CartContextProps = {

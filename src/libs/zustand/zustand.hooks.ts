@@ -4,7 +4,7 @@ import { Product } from "@/types/product.types";
 import { CartItem } from "@/types/cart-item.types";
 import { CartState } from "@/types/cart-state.types";
 
-export const LOCAL_STORAGE_KEY = "cart";
+export const LOCAL_STORAGE_KEY = "cart-zustand";
 
 export const useCartStore = create<CartState>()(
   persist(

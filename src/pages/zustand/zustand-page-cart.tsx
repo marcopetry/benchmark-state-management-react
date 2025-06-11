@@ -7,7 +7,7 @@ export const ZustandPageCart = () => {
   const { increaseQuantity, decreaseQuantity, items } = useCartStore();
 
   const navigate = useNavigate();
-  const onCheckout = () => navigate({ to: "context-api/checkout" });
+  const onCheckout = () => navigate({ to: "zustand/checkout" });
 
   return (
     <PageCart

@@ -12,8 +12,6 @@ export const ZustandDrawer = () => {
   const navigate = useNavigate();
   const router = useRouter();
 
-  console.log({ items });
-
   useEffect(() => {
     const pathname = router.state.location.pathname;
     if (items.length && !firstRender.current && pathname.includes("product")) {

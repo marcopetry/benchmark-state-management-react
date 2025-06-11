@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import styles from "./navbar.module.css";
+import { CoreWebVitals } from "../core-web-vitals";
 
 type NavbarProps = {
   baseRoute: string;
@@ -9,24 +10,28 @@ type NavbarProps = {
 
 export const Navbar = ({ baseRoute, libName }: NavbarProps) => {
   return (
-    <nav className={styles.navbar}>
-      <ul>
-        <li>
-          <Link to="/" title="Página inicial">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to={`/${baseRoute}/products`} title="Produtos">
-            {libName}
-          </Link>
-        </li>
-        <li>
-          <Link to={`/${baseRoute}/cart`} title="Carrinho">
-            Carrinho
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <nav className={styles.navbar}>
+        <ul>
+          <li>
+            <Link to="/" title="Página inicial">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to={`/${baseRoute}/products`} title="Produtos">
+              {libName}
+            </Link>
+          </li>
+          <li>
+            <Link to={`/${baseRoute}/cart`} title="Carrinho">
+              Carrinho
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <CoreWebVitals />
+    </>
   );
 };

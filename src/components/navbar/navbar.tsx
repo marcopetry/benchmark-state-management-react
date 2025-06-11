@@ -2,7 +2,12 @@ import { Link } from "@tanstack/react-router";
 
 import styles from "./navbar.module.css";
 
-export const Navbar = () => {
+type NavbarProps = {
+  baseRoute: string;
+  libName: string;
+};
+
+export const Navbar = ({ baseRoute, libName }: NavbarProps) => {
   return (
     <nav className={styles.navbar}>
       <ul>
@@ -12,8 +17,13 @@ export const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/context-api/products" title="Sobre nós">
-            Context Api
+          <Link to={`/${baseRoute}/products`} title="Produtos">
+            {libName}
+          </Link>
+        </li>
+        <li>
+          <Link to={`/${baseRoute}/cart`} title="Carrinho">
+            Carrinho
           </Link>
         </li>
       </ul>

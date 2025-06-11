@@ -5,7 +5,7 @@ import { ContextApiDrawer } from "./context-api-drawer";
 
 export const ContextApi = () => {
   return (
-    <Layout>
+    <Layout libName="React Context Api" baseRoute="react-context-api">
       <ProductProvider>
         <CartProvider>
           <Outlet />

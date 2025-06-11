@@ -1,0 +1,9 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 24px;
+  max-width: calc(260px * 5 + 24px * 4); /* largura de 5 cards + 4 gaps */
+  margin: 0 auto;
+  box-sizing: border-box;
+}

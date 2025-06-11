@@ -5,6 +5,7 @@ import {
   ContextApiPageProductDetails,
   ContextApiPageProducts,
 } from "@/pages/context-api";
+import { HomePage } from "@/pages/home/home-page";
 import {
   createRootRoute,
   createRoute,
@@ -14,13 +15,20 @@ import {
 
 const rootRoute = createRootRoute({ component: Outlet });
 
+const homeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: HomePage,
+});
+
 const contextRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "context-api",
+  path: "react-context-api",
   component: ContextApi,
 });
 
 const routeTree = rootRoute.addChildren([
+  homeRoute,
   contextRoute.addChildren([
     createRoute({
       path: "products",

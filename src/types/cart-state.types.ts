@@ -10,3 +10,5 @@ export interface CartState {
   clearCart: () => void;
   getProductInCart: (id: number) => CartItem | undefined;
 }
+
+export type UseCartHook = () => CartState;

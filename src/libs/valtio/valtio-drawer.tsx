@@ -12,8 +12,6 @@ export const ValtioDrawer = () => {
   const navigate = useNavigate();
   const router = useRouter();
 
-  console.log({ items, l: items.length, firstRender });
-
   useEffect(() => {
     const pathname = router.state.location.pathname;
     if (items.length && !firstRender.current && pathname.includes("product")) {

@@ -1,16 +1,20 @@
-import { CartItem } from "@/types/cart-item.types";
 import styles from "./page-checkout.module.css";
+import { UseCartHook } from "@/types/cart-state.types";
+import { useNavigate } from "@tanstack/react-router";
 
 type PageCheckoutProps = {
-  products: CartItem[];
-  onSubmit: () => void;
+  basePath: string;
+  useCart: UseCartHook;
 };
 
 export const PageCheckout: React.FC<PageCheckoutProps> = ({
-  products,
-  onSubmit,
+  basePath,
+  useCart,
 }) => {
-  const total = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
+  const { items } = useCart();
+
+  const navigate = useNavigate();
+  const total = items.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
   return (
     <div className={styles.page}>
@@ -19,7 +23,7 @@ export const PageCheckout: React.FC<PageCheckoutProps> = ({
           className={styles.form}
           onSubmit={(e) => {
             e.preventDefault();
-            onSubmit();
+            navigate({ to: `/${basePath}/products` });
           }}
         >
           <h2 className={styles.sectionTitle}>Informações de Pagamento</h2>
@@ -53,7 +57,7 @@ export const PageCheckout: React.FC<PageCheckoutProps> = ({
         <div className={styles.summary}>
           <h2 className={styles.sectionTitle}>Resumo do Pedido</h2>
           <ul className={styles.productList}>
-            {products.map((p) => (
+            {items.map((p) => (
               <li key={p.id} className={styles.productItem}>
                 <span className={styles.title}>{p.title}</span>
                 <span className={styles.total}>

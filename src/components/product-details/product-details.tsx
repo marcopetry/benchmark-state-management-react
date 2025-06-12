@@ -1,21 +1,30 @@
 import { useState } from "react";
 import styles from "./product-details.module.css";
-import { Product } from "@/types/product.types";
+import { useProductDetails } from "@/api/use-product-details";
+import { useParams } from "@tanstack/react-router";
+import { CartState } from "@/types/cart-state.types";
 
 type ProductDetailProps = {
-  product: Product;
-  onAddToCart: (product: Product, quantity: number) => void;
+  basePath: string;
+  useCart: () => CartState;
 };
 
 export const ProductDetail: React.FC<ProductDetailProps> = ({
-  product,
-  onAddToCart,
+  basePath,
+  useCart,
 }) => {
   const [quantity, setQuantity] = useState(1);
+  const { id } = useParams({ from: `/${basePath}/products/$id` });
 
   const handleQuantityChange = (value: number) => {
     setQuantity(Math.max(1, value));
   };
+
+  const { product } = useProductDetails({ id });
+
+  const { addToCart } = useCart();
+
+  if (!product) return <h1>Loading...</h1>;
 
   return (
     <div className={styles.container}>
@@ -52,7 +61,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
               </button>
             </div>
             <button
-              onClick={() => onAddToCart(product, quantity)}
+              onClick={() => addToCart(product, quantity)}
               className={styles.addButton}
             >
               Adicionar ao carrinho

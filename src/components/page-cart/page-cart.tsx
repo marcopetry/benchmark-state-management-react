@@ -1,28 +1,28 @@
 import styles from "./page-cart.module.css";
 import CheckoutCard from "../checkout-product/checkout-product";
-import { Product } from "@/types/product.types";
+
+import { useNavigate } from "@tanstack/react-router";
+import { UseCartHook } from "@/types/cart-state.types";
 
 type PageCartProps = {
-  products: (Product & { quantity: number })[];
-  increaseQuantity: (product: Product) => void;
-  decreaseQuantity: (product: Product) => void;
-  onCheckout: () => void;
+  basePath: string;
+  useCart: UseCartHook;
 };
 
-export const PageCart: React.FC<PageCartProps> = ({
-  products,
-  decreaseQuantity,
-  increaseQuantity,
-  onCheckout,
-}) => {
-  const total = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
+export const PageCart: React.FC<PageCartProps> = ({ basePath, useCart }) => {
+  const navigate = useNavigate();
+  const onCheckout = () => navigate({ to: `${basePath}/checkout` });
+
+  const { increaseQuantity, decreaseQuantity, items } = useCart();
+
+  const total = items.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
   return (
     <div className={styles.page}>
       <div className={styles.container}>
         <h1 className={styles.heading}>Seu Carrinho</h1>
         <ul className={styles.list}>
-          {products.map((product) => (
+          {items.map((product) => (
             <CheckoutCard
               key={product.id}
               product={product}

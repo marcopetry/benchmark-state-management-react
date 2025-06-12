@@ -4,6 +4,7 @@ import { JotaiPages } from "@/libs/jotai";
 import { RecoilPages } from "@/libs/recoil";
 import { ValtioPages } from "@/libs/valtio";
 import { EffectorPages } from "@/libs/effector";
+import { ReduxToolkitPages } from "@/libs/redux-toolkit"; // Import Redux Toolkit
 import { HomePage } from "@/pages/home/home-page";
 
 import {
@@ -62,6 +63,14 @@ const {
   EffectorPageProducts,
 } = EffectorPages;
 
+const {
+  ReduxToolkit,
+  ReduxToolkitPageCart,
+  ReduxToolkitPageCheckout,
+  ReduxToolkitPageProductDetails,
+  ReduxToolkitPageProducts,
+} = ReduxToolkitPages; // Desestruturação Redux Toolkit
+
 // Definição da árvore de rotas
 const rootRoute = createRootRoute({ component: Outlet });
 
@@ -105,6 +114,12 @@ const effectorRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "effector",
   component: Effector,
+});
+
+const reduxToolkitRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "redux-toolkit",
+  component: ReduxToolkit,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -239,6 +254,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: EffectorPageCheckout,
       getParentRoute: () => effectorRoute,
+    }),
+  ]),
+  reduxToolkitRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: ReduxToolkitPageProducts,
+      getParentRoute: () => reduxToolkitRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: ReduxToolkitPageProductDetails,
+      getParentRoute: () => reduxToolkitRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: ReduxToolkitPageCart,
+      getParentRoute: () => reduxToolkitRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: ReduxToolkitPageCheckout,
+      getParentRoute: () => reduxToolkitRoute,
     }),
   ]),
 ]);

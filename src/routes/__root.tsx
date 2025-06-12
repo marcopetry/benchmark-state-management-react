@@ -1,7 +1,18 @@
 import { ContextApiPages } from "@/libs/context-api";
 import { ZustandPages } from "@/libs/zustand";
 import { JotaiPages } from "@/libs/jotai";
+import { RecoilPages } from "@/libs/recoil";
+import { ValtioPages } from "@/libs/valtio";
+import { HomePage } from "@/pages/home/home-page";
 
+import {
+  createRootRoute,
+  createRoute,
+  createRouter,
+  Outlet,
+} from "@tanstack/react-router";
+
+// Desestruturação das páginas de cada state manager
 const {
   ReactContextApi,
   ReactContextApiPageCart,
@@ -9,6 +20,14 @@ const {
   ReactContextApiPageProductDetails,
   ReactContextApiPageProducts,
 } = ContextApiPages;
+
+const {
+  Zustand,
+  ZustandPageCart,
+  ZustandPageCheckout,
+  ZustandPageProductDetails,
+  ZustandPageProducts,
+} = ZustandPages;
 
 const {
   Jotai,
@@ -19,15 +38,6 @@ const {
 } = JotaiPages;
 
 const {
-  Zustand,
-  ZustandPageCart,
-  ZustandPageCheckout,
-  ZustandPageProductDetails,
-  ZustandPageProducts,
-} = ZustandPages;
-
-import { ValtioPages } from "@/libs/valtio";
-const {
   Valtio,
   ValtioPageProducts,
   ValtioPageProductDetails,
@@ -35,14 +45,15 @@ const {
   ValtioPageCheckout,
 } = ValtioPages;
 
-import { HomePage } from "@/pages/home/home-page";
-import {
-  createRootRoute,
-  createRoute,
-  createRouter,
-  Outlet,
-} from "@tanstack/react-router";
+const {
+  Recoil,
+  RecoilPageCart,
+  RecoilPageCheckout,
+  RecoilPageProductDetails,
+  RecoilPageProducts,
+} = RecoilPages;
 
+// Definição da árvore de rotas
 const rootRoute = createRootRoute({ component: Outlet });
 
 const homeRoute = createRoute({
@@ -73,6 +84,12 @@ const valtioRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "valtio",
   component: Valtio,
+});
+
+const recoilRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "recoil",
+  component: Recoil,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -163,6 +180,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: ValtioPageCheckout,
       getParentRoute: () => valtioRoute,
+    }),
+  ]),
+  recoilRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: RecoilPageProducts,
+      getParentRoute: () => recoilRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: RecoilPageProductDetails,
+      getParentRoute: () => recoilRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: RecoilPageCart,
+      getParentRoute: () => recoilRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: RecoilPageCheckout,
+      getParentRoute: () => recoilRoute,
     }),
   ]),
 ]);

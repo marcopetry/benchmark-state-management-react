@@ -1,7 +1,7 @@
-import { PageCart } from "@/components/page-cart";
-import { PageCheckout } from "@/components/page-checkout";
-import { PageProducts } from "@/components/page-products";
-import { ProductDetail } from "@/components/product-details";
+import { PageCart } from "@/pages/page-cart";
+import { PageCheckout } from "@/pages/page-checkout";
+import { PageProducts } from "@/pages/page-products";
+import { ProductDetail } from "@/pages/page-product-details";
 import { CartState } from "@/types/cart-state.types";
 import { ProductContextType } from "@/types/products-context.types";
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./product-details.module.css";
+import styles from "./page-product-details.module.css";
 import { useProductDetails } from "@/api/use-product-details";
 import { useParams } from "@tanstack/react-router";
 import { CartState } from "@/types/cart-state.types";

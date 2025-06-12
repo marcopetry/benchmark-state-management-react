@@ -1,5 +1,5 @@
 import styles from "./page-cart.module.css";
-import CheckoutCard from "../checkout-product/checkout-product";
+import CheckoutCard from "../../components/checkout-product/checkout-product";
 
 import { useNavigate } from "@tanstack/react-router";
 import { UseCartHook } from "@/types/cart-state.types";

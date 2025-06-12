@@ -9,8 +9,6 @@ export const RecoilDrawer = () => {
   const { increaseQuantity, decreaseQuantity, items } = useCart();
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log({ items });
-
   const navigate = useNavigate();
   const router = useRouter();
 

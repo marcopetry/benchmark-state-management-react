@@ -21,7 +21,10 @@ export const Drawer: React.FC<DrawerProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const total = products.reduce((sum, p) => sum + p.price * 1, 0);
+  const total = products.reduce(
+    (sum, p) => sum + p.price * (p.quantity || 1),
+    0
+  );
 
   const handleClose = () => {
     setIsVisible(false);

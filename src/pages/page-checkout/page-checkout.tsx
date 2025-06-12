@@ -11,7 +11,7 @@ export const PageCheckout: React.FC<PageCheckoutProps> = ({
   basePath,
   useCart,
 }) => {
-  const { items } = useCart();
+  const { items, clearCart } = useCart();
 
   const navigate = useNavigate();
   const total = items.reduce((sum, p) => sum + p.price * p.quantity, 0);
@@ -24,6 +24,7 @@ export const PageCheckout: React.FC<PageCheckoutProps> = ({
           onSubmit={(e) => {
             e.preventDefault();
             navigate({ to: `/${basePath}/products` });
+            clearCart();
           }}
         >
           <h2 className={styles.sectionTitle}>Informações de Pagamento</h2>

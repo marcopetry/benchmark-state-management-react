@@ -3,6 +3,7 @@ import { ZustandPages } from "@/libs/zustand";
 import { JotaiPages } from "@/libs/jotai";
 import { RecoilPages } from "@/libs/recoil";
 import { ValtioPages } from "@/libs/valtio";
+import { EffectorPages } from "@/libs/effector";
 import { HomePage } from "@/pages/home/home-page";
 
 import {
@@ -53,6 +54,14 @@ const {
   RecoilPageProducts,
 } = RecoilPages;
 
+const {
+  Effector,
+  EffectorPageCart,
+  EffectorPageCheckout,
+  EffectorPageProductDetails,
+  EffectorPageProducts,
+} = EffectorPages;
+
 // Definição da árvore de rotas
 const rootRoute = createRootRoute({ component: Outlet });
 
@@ -90,6 +99,12 @@ const recoilRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "recoil",
   component: Recoil,
+});
+
+const effectorRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "effector",
+  component: Effector,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -202,6 +217,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: RecoilPageCheckout,
       getParentRoute: () => recoilRoute,
+    }),
+  ]),
+  effectorRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: EffectorPageProducts,
+      getParentRoute: () => effectorRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: EffectorPageProductDetails,
+      getParentRoute: () => effectorRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: EffectorPageCart,
+      getParentRoute: () => effectorRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: EffectorPageCheckout,
+      getParentRoute: () => effectorRoute,
     }),
   ]),
 ]);

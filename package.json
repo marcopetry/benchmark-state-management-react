@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "@tanstack/react-router": "^1.120.15",
     "effector": "^23.3.0",
     "effector-react": "^23.3.0",
     "jotai": "^2.12.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-redux": "^9.2.0",
     "recoil": "^0.7.7",
     "valtio": "^2.1.5",
     "web-vitals": "^5.0.2",

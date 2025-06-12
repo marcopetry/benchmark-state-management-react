@@ -1,35 +1,39 @@
-import { ContextApi } from "@/libs/context-api";
-import { Zustand } from "@/libs/zustand";
-import { Jotai } from "@/libs/jotai";
+import { ContextApiPages } from "@/libs/context-api";
+import { ZustandPages } from "@/libs/zustand";
+import { JotaiPages } from "@/libs/jotai";
 
-import {
-  ContextApiPageCart,
-  ContextApiPageCheckout,
-  ContextApiPageProductDetails,
-  ContextApiPageProducts,
-} from "@/pages/context-api";
+const {
+  ReactContextApi,
+  ReactContextApiPageCart,
+  ReactContextApiPageCheckout,
+  ReactContextApiPageProductDetails,
+  ReactContextApiPageProducts,
+} = ContextApiPages;
 
-import {
-  ZustandPageProducts,
-  ZustandPageProductDetails,
-  ZustandPageCart,
-  ZustandPageCheckout,
-} from "@/pages/zustand";
-
-import {
-  JotaiPageProducts,
-  JotaiPageProductDetails,
+const {
+  Jotai,
   JotaiPageCart,
   JotaiPageCheckout,
-} from "@/pages/jotai";
+  JotaiPageProductDetails,
+  JotaiPageProducts,
+} = JotaiPages;
 
-import { Valtio } from "@/libs/valtio";
-import {
+const {
+  Zustand,
+  ZustandPageCart,
+  ZustandPageCheckout,
+  ZustandPageProductDetails,
+  ZustandPageProducts,
+} = ZustandPages;
+
+import { ValtioPages } from "@/libs/valtio";
+const {
+  Valtio,
   ValtioPageProducts,
   ValtioPageProductDetails,
   ValtioPageCart,
   ValtioPageCheckout,
-} from "@/pages/valtio";
+} = ValtioPages;
 
 import { HomePage } from "@/pages/home/home-page";
 import {
@@ -50,7 +54,7 @@ const homeRoute = createRoute({
 const contextRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "react-context-api",
-  component: ContextApi,
+  component: ReactContextApi,
 });
 
 const zustandRoute = createRoute({
@@ -76,22 +80,22 @@ const routeTree = rootRoute.addChildren([
   contextRoute.addChildren([
     createRoute({
       path: "products",
-      component: ContextApiPageProducts,
+      component: ReactContextApiPageProducts,
       getParentRoute: () => contextRoute,
     }),
     createRoute({
       path: "products/$id",
-      component: ContextApiPageProductDetails,
+      component: ReactContextApiPageProductDetails,
       getParentRoute: () => contextRoute,
     }),
     createRoute({
       path: "cart",
-      component: ContextApiPageCart,
+      component: ReactContextApiPageCart,
       getParentRoute: () => contextRoute,
     }),
     createRoute({
       path: "checkout",
-      component: ContextApiPageCheckout,
+      component: ReactContextApiPageCheckout,
       getParentRoute: () => contextRoute,
     }),
   ]),

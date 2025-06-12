@@ -4,6 +4,7 @@ import { atomWithStorage } from "jotai/utils";
 import { Product } from "@/types/product.types";
 import { CartItem } from "@/types/cart-item.types";
 import { CartState } from "@/types/cart-state.types";
+import { ProductContextType } from "@/types/products-context.types";
 const LOCAL_STORAGE_KEY = "cart-jotai";
 
 const cartItemsAtom = atomWithStorage<CartItem[]>(LOCAL_STORAGE_KEY, []);
@@ -77,14 +78,9 @@ export function useCart(): CartState {
   };
 }
 
-interface ProductStore {
-  products: Product[];
-  setProducts: (products: Product[]) => void;
-}
-
 const productsAtom = atom<Product[]>([]);
 
-export function useProductContext(): ProductStore {
+export function useProductsContext(): ProductContextType {
   const [products, setProducts] = useAtom(productsAtom);
 
   return {

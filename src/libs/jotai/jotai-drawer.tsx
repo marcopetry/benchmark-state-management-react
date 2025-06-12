@@ -27,7 +27,7 @@ export const JotaiDrawer = () => {
     <Drawer
       products={items}
       onClose={() => setIsOpen(false)}
-      onCheckout={() => navigate({ to: "/zustand/checkout" })}
+      onCheckout={() => navigate({ to: "/jotai/checkout" })}
       decreaseQuantity={decreaseQuantity}
       increaseQuantity={increaseQuantity}
     />

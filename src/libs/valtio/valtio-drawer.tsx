@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Drawer } from "@/components/drawer";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useCart } from "./valtio.hooks";
-import { CartItem } from "@/types/cart-item.types";
 
 export const ValtioDrawer = () => {
   const firstRender = useRef(true);
@@ -28,9 +27,9 @@ export const ValtioDrawer = () => {
 
   return (
     <Drawer
-      products={items as CartItem[]}
+      products={items}
       onClose={() => setIsOpen(false)}
-      onCheckout={() => navigate({ to: "/zustand/checkout" })}
+      onCheckout={() => navigate({ to: "/valtio/checkout" })}
       decreaseQuantity={decreaseQuantity}
       increaseQuantity={increaseQuantity}
     />

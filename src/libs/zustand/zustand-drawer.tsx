@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Drawer } from "@/components/drawer";
 import { useNavigate, useRouter } from "@tanstack/react-router";
-import { useCartStore } from "./zustand.hooks";
+import { useCart } from "./zustand.hooks";
 
 export const ZustandDrawer = () => {
   const firstRender = useRef(true);
 
-  const { increaseQuantity, decreaseQuantity, items } = useCartStore();
+  const { increaseQuantity, decreaseQuantity, items } = useCart();
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();

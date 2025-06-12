@@ -2,6 +2,8 @@
 import { proxy, useSnapshot } from "valtio";
 import { Product } from "@/types/product.types";
 import { CartItem } from "@/types/cart-item.types";
+import { CartState } from "@/types/cart-state.types";
+import { ProductContextType } from "@/types/products-context.types";
 
 // Estado base com proxy
 const cartState = proxy<{ items: CartItem[] }>({
@@ -48,11 +50,10 @@ export const cartActions = {
   },
 };
 
-// Hook para consumir o estado com snapshot reativo
-export function useCart() {
+export function useCart(): CartState {
   const snapshot = useSnapshot(cartState);
   return {
-    items: snapshot.items,
+    items: snapshot.items as CartItem[],
     ...cartActions,
   };
 }
@@ -67,10 +68,10 @@ export const productActions = {
   },
 };
 
-export function useProductsContext() {
+export function useProductsContext(): ProductContextType {
   const snapshot = useSnapshot(productState);
   return {
-    products: snapshot.products,
+    products: snapshot.products as Product[],
     ...productActions,
   };
 }

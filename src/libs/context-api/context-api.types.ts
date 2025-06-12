@@ -2,7 +2,7 @@ import { CartItem } from "@/types/cart-item.types";
 import { Product } from "@/types/product.types";
 
 export type CartContextProps = {
-  state: CartState;
+  state: CartItemsState;
   dispatch: React.Dispatch<CartAction>;
 };
 
@@ -14,7 +14,7 @@ export enum CartActionType {
   CLEAR_CART = "CLEAR_CART",
 }
 
-export type CartState = {
+export type CartItemsState = {
   items: CartItem[];
 };
 

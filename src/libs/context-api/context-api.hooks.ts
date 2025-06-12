@@ -3,20 +3,21 @@ import { useContext, useEffect } from "react";
 import {
   CartAction,
   CartActionType,
-  CartState,
+  CartItemsState,
   LOCAL_STORAGE_KEY,
 } from "./context-api.types";
 import { CartContext } from "./context-api-provider";
 import { useLocalStorageState } from "@/hooks/use-local-storage";
+import { CartState } from "@/types/cart-state.types";
 
-export const initialState: CartState = {
+export const initialState: CartItemsState = {
   items: [],
 };
 
 export const cartReducer = (
-  state: CartState,
+  state: CartItemsState,
   action: CartAction
-): CartState => {
+): CartItemsState => {
   switch (action.type) {
     case CartActionType.ADD_TO_CART: {
       const exists = state.items.find((item) => item.id === action.payload.id);
@@ -81,14 +82,11 @@ export const cartReducer = (
   }
 };
 
-export function useCart() {
+export const useCart = (): CartState => {
   const context = useContext(CartContext);
   if (!context) throw new Error("useCart must be used within a CartProvider");
-  return context;
-}
 
-export const useCartActions = () => {
-  const { dispatch, state } = useCart();
+  const { dispatch, state } = context;
   const addToCart = (product: Product, quantity?: number) =>
     dispatch({
       type: CartActionType.ADD_TO_CART,
@@ -114,6 +112,7 @@ export const useCartActions = () => {
   }, [state]);
 
   return {
+    items: state.items,
     addToCart,
     removeFromCart,
     increaseQuantity,

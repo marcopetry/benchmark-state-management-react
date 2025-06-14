@@ -51,12 +51,6 @@ const libs = [
     githubUrl: "https://github.com/avkonst/hookstate",
   },
   {
-    name: "RxJS",
-    logoUrl:
-      "https://rxjs.dev/generated/images/marketing/home/Rx_Logo-512-512.png",
-    githubUrl: "https://github.com/ReactiveX/rxjs",
-  },
-  {
     name: "XState",
     logoUrl: "https://stately.ai/logo-black.svg",
     githubUrl: "https://github.com/statelyai/xstate",

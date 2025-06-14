@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@hookstate/core':
+        specifier: ^4.0.2
+        version: 4.0.2(react@18.3.1)
+      '@hookstate/localstored':
+        specifier: ^4.0.2
+        version: 4.0.2(@hookstate/core@4.0.2(react@18.3.1))
       '@reduxjs/toolkit':
         specifier: ^2.8.2
         version: 2.8.2(react-redux@9.2.0(@types/react@18.3.18)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
@@ -584,6 +590,16 @@ packages:
   '@eslint/plugin-kit@0.2.5':
     resolution: {integrity: sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@hookstate/core@4.0.2':
+    resolution: {integrity: sha512-DTyb4fKk8GCwKFCVoF/2v1qnvs9rEB2Rc9ZH5eh1LRNemUVnC41Vuy6d8UGqQSA0PIUk3DRPzlOA0QQKONpSmQ==}
+    peerDependencies:
+      react: ^16.8.6 || ^17.0.0 || ^18.0.0
+
+  '@hookstate/localstored@4.0.2':
+    resolution: {integrity: sha512-81dbUH6xnwbePby21NQN8zrmjvMA8tOYeOOLZXqRmRGKnhtcokjTJoRNMZugpC9P3/NnacllBZ5ZUt43nmrKkA==}
+    peerDependencies:
+      '@hookstate/core': ^4.0.0
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2376,6 +2392,14 @@ snapshots:
     dependencies:
       '@eslint/core': 0.10.0
       levn: 0.4.1
+
+  '@hookstate/core@4.0.2(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+
+  '@hookstate/localstored@4.0.2(@hookstate/core@4.0.2(react@18.3.1))':
+    dependencies:
+      '@hookstate/core': 4.0.2(react@18.3.1)
 
   '@humanfs/core@0.19.1': {}
 

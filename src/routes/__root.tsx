@@ -7,6 +7,7 @@ import { EffectorPages } from "@/libs/effector";
 import { ReduxToolkitPages } from "@/libs/redux-toolkit";
 import { RematchPages } from "@/libs/rematch";
 import { HookStatePages } from "@/libs/hook-state";
+import { UseContextSelectorPages } from "@/libs/use-context-selector";
 import { HomePage } from "@/pages/home/home-page";
 
 import {
@@ -89,6 +90,14 @@ const {
   HookStatePageProducts,
 } = HookStatePages;
 
+const {
+  UseContextSelector,
+  UseContextSelectorPageCart,
+  UseContextSelectorPageCheckout,
+  UseContextSelectorPageProductDetails,
+  UseContextSelectorPageProducts,
+} = UseContextSelectorPages;
+
 // Definição da árvore de rotas
 const rootRoute = createRootRoute({ component: Outlet });
 
@@ -150,6 +159,12 @@ const hookStateRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "hookstate",
   component: HookState,
+});
+
+const useContextSelectorRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "use-context-selector",
+  component: UseContextSelector,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -330,7 +345,6 @@ const routeTree = rootRoute.addChildren([
       getParentRoute: () => rematchRoute,
     }),
   ]),
-
   hookStateRoute.addChildren([
     createRoute({
       path: "products",
@@ -351,6 +365,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: HookStatePageCheckout,
       getParentRoute: () => hookStateRoute,
+    }),
+  ]),
+  useContextSelectorRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: UseContextSelectorPageProducts,
+      getParentRoute: () => useContextSelectorRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: UseContextSelectorPageProductDetails,
+      getParentRoute: () => useContextSelectorRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: UseContextSelectorPageCart,
+      getParentRoute: () => useContextSelectorRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: UseContextSelectorPageCheckout,
+      getParentRoute: () => useContextSelectorRoute,
     }),
   ]),
 ]);

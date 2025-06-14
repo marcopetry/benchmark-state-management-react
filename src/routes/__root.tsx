@@ -6,6 +6,8 @@ import { ValtioPages } from "@/libs/valtio";
 import { EffectorPages } from "@/libs/effector";
 import { ReduxToolkitPages } from "@/libs/redux-toolkit";
 import { RematchPages } from "@/libs/rematch";
+import { XStatePages } from "@/libs/x-state";
+import { HookStatePages } from "@/libs/hook-state";
 import { HomePage } from "@/pages/home/home-page";
 
 import {
@@ -80,6 +82,22 @@ const {
   RematchPageProducts,
 } = RematchPages;
 
+const {
+  XState,
+  XStatePageCart,
+  XStatePageCheckout,
+  XStatePageProductDetails,
+  XStatePageProducts,
+} = XStatePages;
+
+const {
+  HookState,
+  HookStatePageCart,
+  HookStatePageCheckout,
+  HookStatePageProductDetails,
+  HookStatePageProducts,
+} = HookStatePages;
+
 // Definição da árvore de rotas
 const rootRoute = createRootRoute({ component: Outlet });
 
@@ -135,6 +153,18 @@ const rematchRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "rematch",
   component: Rematch,
+});
+
+const xstateRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "xstate",
+  component: XState,
+});
+
+const hookStateRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "hookstate",
+  component: HookState,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -313,6 +343,50 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: RematchPageCheckout,
       getParentRoute: () => rematchRoute,
+    }),
+  ]),
+  xstateRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: XStatePageProducts,
+      getParentRoute: () => xstateRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: XStatePageProductDetails,
+      getParentRoute: () => xstateRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: XStatePageCart,
+      getParentRoute: () => xstateRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: XStatePageCheckout,
+      getParentRoute: () => xstateRoute,
+    }),
+  ]),
+  hookStateRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: HookStatePageProducts,
+      getParentRoute: () => hookStateRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: HookStatePageProductDetails,
+      getParentRoute: () => hookStateRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: HookStatePageCart,
+      getParentRoute: () => hookStateRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: HookStatePageCheckout,
+      getParentRoute: () => hookStateRoute,
     }),
   ]),
 ]);

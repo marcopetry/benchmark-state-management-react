@@ -11,7 +11,7 @@ type PageCartProps = {
 
 export const PageCart: React.FC<PageCartProps> = ({ basePath, useCart }) => {
   const navigate = useNavigate();
-  const onCheckout = () => navigate({ to: `${basePath}/checkout` });
+  const onCheckout = () => navigate({ to: `/${basePath}/checkout` });
 
   const { increaseQuantity, decreaseQuantity, items } = useCart();
 

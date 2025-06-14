@@ -8,6 +8,7 @@ import { ReduxToolkitPages } from "@/libs/redux-toolkit";
 import { RematchPages } from "@/libs/rematch";
 import { HookStatePages } from "@/libs/hook-state";
 import { UseContextSelectorPages } from "@/libs/use-context-selector";
+import { ConstatePages } from "@/libs/constate";
 import { HomePage } from "@/pages/home/home-page";
 
 import {
@@ -98,6 +99,14 @@ const {
   UseContextSelectorPageProducts,
 } = UseContextSelectorPages;
 
+const {
+  Constate,
+  ConstatePageCart,
+  ConstatePageCheckout,
+  ConstatePageProductDetails,
+  ConstatePageProducts,
+} = ConstatePages;
+
 // Definição da árvore de rotas
 const rootRoute = createRootRoute({ component: Outlet });
 
@@ -165,6 +174,12 @@ const useContextSelectorRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "use-context-selector",
   component: UseContextSelector,
+});
+
+const constateRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "constate",
+  component: Constate,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -387,6 +402,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: UseContextSelectorPageCheckout,
       getParentRoute: () => useContextSelectorRoute,
+    }),
+  ]),
+  constateRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: ConstatePageProducts,
+      getParentRoute: () => constateRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: ConstatePageProductDetails,
+      getParentRoute: () => constateRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: ConstatePageCart,
+      getParentRoute: () => constateRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: ConstatePageCheckout,
+      getParentRoute: () => constateRoute,
     }),
   ]),
 ]);

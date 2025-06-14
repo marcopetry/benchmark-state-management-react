@@ -5,8 +5,8 @@ import {
   CartActionType,
   CartItemsState,
   LOCAL_STORAGE_KEY,
-} from "./context-api.types";
-import { CartContext } from "./context-api-provider";
+} from "./react-context-api.types";
+import { CartContext } from "./react-context-api-provider";
 import { useLocalStorageState } from "@/hooks/use-local-storage";
 import { CartState } from "@/types/cart-state.types";
 

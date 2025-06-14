@@ -5,8 +5,8 @@ import {
   useReducer,
   useState,
 } from "react";
-import { CartContextProps, LOCAL_STORAGE_KEY } from "./context-api.types";
-import { cartReducer, initialState } from "./context-api.hooks";
+import { CartContextProps, LOCAL_STORAGE_KEY } from "./react-context-api.types";
+import { cartReducer, initialState } from "./react-context-api.hooks";
 import { Product } from "@/types/product.types";
 import { useLocalStorageState } from "@/hooks/use-local-storage";
 

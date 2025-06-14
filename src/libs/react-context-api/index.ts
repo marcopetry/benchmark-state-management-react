@@ -1,7 +1,7 @@
 import { withPages } from "@/hoc/withPages";
-import { useCart } from "./context-api.hooks";
-import { useProductsContext } from "./context-api-provider";
-import { ContextApi } from "./context-api";
+import { useCart } from "./react-context-api.hooks";
+import { useProductsContext } from "./react-context-api-provider";
+import { ContextApi } from "./react-context-api";
 
 const { PageCart, PageCheckout, PageProductDetails, PageProducts } = withPages({
   basePath: "react-context-api",

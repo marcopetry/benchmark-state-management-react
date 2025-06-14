@@ -1,4 +1,4 @@
-import { ContextApiPages } from "@/libs/context-api";
+import { ContextApiPages } from "@/libs/react-context-api";
 import { ZustandPages } from "@/libs/zustand";
 import { JotaiPages } from "@/libs/jotai";
 import { RecoilPages } from "@/libs/recoil";

@@ -1,9 +1,9 @@
 import { Layout } from "@/components/layout";
 import { Outlet } from "@tanstack/react-router";
-import { CartProvider, ProductProvider } from "./context-api-provider";
+import { CartProvider, ProductProvider } from "./react-context-api-provider";
 
 import { Drawer } from "@/components/drawer";
-import { useCart } from "./context-api.hooks";
+import { useCart } from "./react-context-api.hooks";
 
 export const ContextApi = () => {
   return (

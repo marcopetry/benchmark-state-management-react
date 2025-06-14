@@ -51,16 +51,6 @@ const libs = [
     githubUrl: "https://github.com/avkonst/hookstate",
   },
   {
-    name: "XState",
-    logoUrl: "https://stately.ai/logo-black.svg",
-    githubUrl: "https://github.com/statelyai/xstate",
-  },
-  {
-    name: "Robot3",
-    logoUrl: "https://thisrobot.life/images/robot-mono.png",
-    githubUrl: "https://github.com/matthewp/robot",
-  },
-  {
     name: "use-context-selector",
     logoUrl: "https://avatars.githubusercontent.com/u/69631?s=200&v=4",
     githubUrl: "https://github.com/dai-shi/use-context-selector",

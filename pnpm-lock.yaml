@@ -11,6 +11,12 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^2.8.2
         version: 2.8.2(react-redux@9.2.0(@types/react@18.3.18)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
+      '@rematch/core':
+        specifier: ^2.2.0
+        version: 2.2.0(redux@5.0.1)
+      '@rematch/persist':
+        specifier: ^2.1.2
+        version: 2.1.2(@rematch/core@2.2.0(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
       '@tanstack/react-router':
         specifier: ^1.120.15
         version: 1.120.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -35,6 +41,9 @@ importers:
       recoil:
         specifier: ^0.7.7
         version: 0.7.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      redux-persist:
+        specifier: ^6.0.0
+        version: 6.0.0(react@18.3.1)(redux@5.0.1)
       valtio:
         specifier: ^2.1.5
         version: 2.1.5(@types/react@18.3.18)(react@18.3.1)
@@ -624,6 +633,18 @@ packages:
         optional: true
       react-redux:
         optional: true
+
+  '@rematch/core@2.2.0':
+    resolution: {integrity: sha512-Sj3nC/2X+bOBZeOf4jdJ00nhCcx9wLbVK9SOs6eFR4Y1qKXqRY0hGigbQgfTpCdjRFlwTHHfN3m41MlNvMhDgw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      redux: '>=4'
+
+  '@rematch/persist@2.1.2':
+    resolution: {integrity: sha512-QiXo3pKCZFv8WW6zeMtBXGOXXp+BuUnoYNpr6p8Euah6gWThoWtbDS8NmlbKj3igmG9TtowuBVSxJCAgFk45zQ==}
+    peerDependencies:
+      '@rematch/core': '>=2'
+      redux: '>=4'
 
   '@rollup/rollup-android-arm-eabi@4.32.1':
     resolution: {integrity: sha512-/pqA4DmqyCm8u5YIDzIdlLcEmuvxb0v8fZdFhVMszSpDTgbQKdw3/mB3eMUHIbubtJ6F9j+LtmyCnHTEqIHyzA==}
@@ -1626,6 +1647,15 @@ packages:
       react-native:
         optional: true
 
+  redux-persist@6.0.0:
+    resolution: {integrity: sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==}
+    peerDependencies:
+      react: '>=16'
+      redux: '>4.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+
   redux-thunk@3.1.0:
     resolution: {integrity: sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==}
     peerDependencies:
@@ -2388,6 +2418,18 @@ snapshots:
     optionalDependencies:
       react: 18.3.1
       react-redux: 9.2.0(@types/react@18.3.18)(react@18.3.1)(redux@5.0.1)
+
+  '@rematch/core@2.2.0(redux@5.0.1)':
+    dependencies:
+      redux: 5.0.1
+
+  '@rematch/persist@2.1.2(@rematch/core@2.2.0(redux@5.0.1))(react@18.3.1)(redux@5.0.1)':
+    dependencies:
+      '@rematch/core': 2.2.0(redux@5.0.1)
+      redux: 5.0.1
+      redux-persist: 6.0.0(react@18.3.1)(redux@5.0.1)
+    transitivePeerDependencies:
+      - react
 
   '@rollup/rollup-android-arm-eabi@4.32.1':
     optional: true
@@ -3525,6 +3567,12 @@ snapshots:
       react: 18.3.1
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
+
+  redux-persist@6.0.0(react@18.3.1)(redux@5.0.1):
+    dependencies:
+      redux: 5.0.1
+    optionalDependencies:
+      react: 18.3.1
 
   redux-thunk@3.1.0(redux@5.0.1):
     dependencies:

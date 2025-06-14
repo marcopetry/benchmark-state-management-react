@@ -4,7 +4,8 @@ import { JotaiPages } from "@/libs/jotai";
 import { RecoilPages } from "@/libs/recoil";
 import { ValtioPages } from "@/libs/valtio";
 import { EffectorPages } from "@/libs/effector";
-import { ReduxToolkitPages } from "@/libs/redux-toolkit"; // Import Redux Toolkit
+import { ReduxToolkitPages } from "@/libs/redux-toolkit";
+import { RematchPages } from "@/libs/rematch";
 import { HomePage } from "@/pages/home/home-page";
 
 import {
@@ -69,7 +70,15 @@ const {
   ReduxToolkitPageCheckout,
   ReduxToolkitPageProductDetails,
   ReduxToolkitPageProducts,
-} = ReduxToolkitPages; // Desestruturação Redux Toolkit
+} = ReduxToolkitPages;
+
+const {
+  Rematch,
+  RematchPageCart,
+  RematchPageCheckout,
+  RematchPageProductDetails,
+  RematchPageProducts,
+} = RematchPages;
 
 // Definição da árvore de rotas
 const rootRoute = createRootRoute({ component: Outlet });
@@ -120,6 +129,12 @@ const reduxToolkitRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "redux-toolkit",
   component: ReduxToolkit,
+});
+
+const rematchRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "rematch",
+  component: Rematch,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -276,6 +291,28 @@ const routeTree = rootRoute.addChildren([
       path: "checkout",
       component: ReduxToolkitPageCheckout,
       getParentRoute: () => reduxToolkitRoute,
+    }),
+  ]),
+  rematchRoute.addChildren([
+    createRoute({
+      path: "products",
+      component: RematchPageProducts,
+      getParentRoute: () => rematchRoute,
+    }),
+    createRoute({
+      path: "products/$id",
+      component: RematchPageProductDetails,
+      getParentRoute: () => rematchRoute,
+    }),
+    createRoute({
+      path: "cart",
+      component: RematchPageCart,
+      getParentRoute: () => rematchRoute,
+    }),
+    createRoute({
+      path: "checkout",
+      component: RematchPageCheckout,
+      getParentRoute: () => rematchRoute,
     }),
   ]),
 ]);

@@ -6,7 +6,6 @@ import { ValtioPages } from "@/libs/valtio";
 import { EffectorPages } from "@/libs/effector";
 import { ReduxToolkitPages } from "@/libs/redux-toolkit";
 import { RematchPages } from "@/libs/rematch";
-import { XStatePages } from "@/libs/x-state";
 import { HookStatePages } from "@/libs/hook-state";
 import { HomePage } from "@/pages/home/home-page";
 
@@ -83,14 +82,6 @@ const {
 } = RematchPages;
 
 const {
-  XState,
-  XStatePageCart,
-  XStatePageCheckout,
-  XStatePageProductDetails,
-  XStatePageProducts,
-} = XStatePages;
-
-const {
   HookState,
   HookStatePageCart,
   HookStatePageCheckout,
@@ -153,12 +144,6 @@ const rematchRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "rematch",
   component: Rematch,
-});
-
-const xstateRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "xstate",
-  component: XState,
 });
 
 const hookStateRoute = createRoute({
@@ -345,28 +330,7 @@ const routeTree = rootRoute.addChildren([
       getParentRoute: () => rematchRoute,
     }),
   ]),
-  xstateRoute.addChildren([
-    createRoute({
-      path: "products",
-      component: XStatePageProducts,
-      getParentRoute: () => xstateRoute,
-    }),
-    createRoute({
-      path: "products/$id",
-      component: XStatePageProductDetails,
-      getParentRoute: () => xstateRoute,
-    }),
-    createRoute({
-      path: "cart",
-      component: XStatePageCart,
-      getParentRoute: () => xstateRoute,
-    }),
-    createRoute({
-      path: "checkout",
-      component: XStatePageCheckout,
-      getParentRoute: () => xstateRoute,
-    }),
-  ]),
+
   hookStateRoute.addChildren([
     createRoute({
       path: "products",

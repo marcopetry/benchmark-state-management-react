@@ -1,13 +1,14 @@
+import { Drawer } from "@/components/drawer";
 import { Layout } from "@/components/layout";
 import { Outlet } from "@tanstack/react-router";
-import { ZustandDrawer } from "./zustand-drawer";
+import { useCart } from "./zustand.hooks";
 
 export const Zustand = () => {
   return (
     <Layout baseRoute="zustand" libName="Zustand">
       <>
         <Outlet />
-        <ZustandDrawer />
+        <Drawer basePath="zustand" useCart={useCart} />
       </>
     </Layout>
   );

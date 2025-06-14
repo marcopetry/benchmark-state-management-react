@@ -1,7 +1,9 @@
 import { Layout } from "@/components/layout";
 import { Outlet } from "@tanstack/react-router";
 import { CartProvider, ProductProvider } from "./context-api-provider";
-import { ContextApiDrawer } from "./context-api-drawer";
+
+import { Drawer } from "@/components/drawer";
+import { useCart } from "./context-api.hooks";
 
 export const ContextApi = () => {
   return (
@@ -9,7 +11,7 @@ export const ContextApi = () => {
       <ProductProvider>
         <CartProvider>
           <Outlet />
-          <ContextApiDrawer />
+          <Drawer basePath="react-context-api" useCart={useCart} />
         </CartProvider>
       </ProductProvider>
     </Layout>

@@ -6,7 +6,7 @@ import { useCart } from "./redux-toolkit.hooks";
 
 export const ReduxToolkit = () => {
   return (
-    <Layout baseRoute="/redux-toolkit" libName="Redux Toolkit">
+    <Layout baseRoute="redux-toolkit" libName="Redux Toolkit">
       <ReduxProvider>
         <Outlet />
         <Drawer basePath="redux-toolkit" useCart={useCart} />

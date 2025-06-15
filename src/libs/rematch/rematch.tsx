@@ -6,7 +6,7 @@ import { useCart } from "./rematch.hooks";
 
 export const Rematch = () => {
   return (
-    <Layout baseRoute="/rematch" libName="Rematch">
+    <Layout baseRoute="rematch" libName="Rematch">
       <RematchProvider>
         <Outlet />
         <Drawer basePath="rematch" useCart={useCart} />

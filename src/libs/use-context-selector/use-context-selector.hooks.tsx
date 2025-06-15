@@ -3,7 +3,14 @@ import {
   useContextSelector,
   Context,
 } from "use-context-selector";
-import { FC, ReactNode, useState, useCallback, useEffect } from "react";
+import {
+  FC,
+  ReactNode,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 
 import { Product } from "@/types/product.types";
 import { CartState } from "@/types/cart-state.types";
@@ -79,15 +86,26 @@ export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
     [items]
   );
 
-  const value: CartState = {
-    items,
-    addToCart,
-    removeFromCart,
-    increaseQuantity,
-    decreaseQuantity,
-    clearCart,
-    getProductInCart,
-  };
+  const value: CartState = useMemo(
+    () => ({
+      items,
+      addToCart,
+      removeFromCart,
+      increaseQuantity,
+      decreaseQuantity,
+      clearCart,
+      getProductInCart,
+    }),
+    [
+      items,
+      addToCart,
+      removeFromCart,
+      increaseQuantity,
+      decreaseQuantity,
+      clearCart,
+      getProductInCart,
+    ]
+  );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
@@ -116,10 +134,13 @@ export const ProductsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setProducts(newProducts);
   }, []);
 
-  const value: ProductContextType = {
-    products,
-    setProducts: setProductsCallback,
-  };
+  const value: ProductContextType = useMemo(
+    () => ({
+      products,
+      setProducts: setProductsCallback,
+    }),
+    [products, setProductsCallback]
+  );
 
   return (
     <ProductsContext.Provider value={value}>

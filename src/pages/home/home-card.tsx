@@ -28,7 +28,7 @@ export const HomeCard = ({ name, logoUrl, githubUrl }: LibCardProps) => {
           />
         </a>
         <a href={`/${kebabName}/products`} className={styles.detailsLink}>
-          Ver detalhes
+          Ver benchmark
         </a>
       </div>
     </div>

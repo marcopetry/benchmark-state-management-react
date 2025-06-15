@@ -80,6 +80,10 @@ export const CoreWebVitals: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    (window as any).__CWV_METRICS__ = metrics;
+  }, [metrics]);
+
   return (
     <div className={styles.container}>
       {Object.entries(metrics).map(([title, value]) => (

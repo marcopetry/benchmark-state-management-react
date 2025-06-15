@@ -1,35 +1,76 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { onCLS, onLCP, onINP, onTTFB, type Metric } from "web-vitals";
 
-import styles from "./core-web-vitals.module.css"; // use .css se preferir inline
+import styles from "./core-web-vitals.module.css";
 import { CoreWebMetricCard } from "./core-web-metric";
-import { convertToLocalTime } from "@/utils/convert-to-localtime";
-import { diffMsBetweenDates } from "@/utils/diff-ms-between-datetimes";
 
 export const CoreWebVitals: React.FC = () => {
-  const [metrics, setMetrics] = useState<Record<string, number>>({});
-  const [loadTime, setLoadTime] = useState<Date | null>(null);
+  const [metrics, setMetrics] = useState<Record<string, string>>({});
 
-  const refInitialRenderTime = useRef(new Date());
-
-  const handleMetric = (metric: Metric) => {
-    setMetrics((prev) => ({
-      ...prev,
-      [metric.name]: parseFloat(metric.value.toFixed(2)),
-    }));
-  };
-
+  // Web-vitals (LCP, CLS, INP, TTFB)
   useEffect(() => {
+    const handleMetric = (metric: Metric) => {
+      setMetrics((prev) => ({
+        ...prev,
+        [metric.name]: `${metric.value.toFixed(2)} ms`,
+      }));
+    };
+
     onCLS(handleMetric);
     onLCP(handleMetric);
     onTTFB(handleMetric);
     onINP(handleMetric);
   }, []);
 
+  // Paint timings (FCP, FP)
   useEffect(() => {
-    function handleLoad() {
-      setLoadTime(new Date());
-    }
+    const updatedMetrics: Record<string, string> = {};
+
+    const paintObserver = new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (entry.name === "first-paint") {
+          updatedMetrics["First Paint (FP)"] = `${entry.startTime.toFixed(
+            2
+          )} ms`;
+        }
+        if (entry.name === "first-contentful-paint") {
+          updatedMetrics[
+            "First Contentful Paint (FCP)"
+          ] = `${entry.startTime.toFixed(2)} ms`;
+        }
+      }
+
+      setMetrics((prev) => ({ ...prev, ...updatedMetrics }));
+    });
+
+    paintObserver.observe({ type: "paint", buffered: true });
+
+    return () => paintObserver.disconnect();
+  }, []);
+
+  // Navegação e tempo de carregamento total (após load)
+  useEffect(() => {
+    const handleLoad = () => {
+      const navEntry = performance.getEntriesByType(
+        "navigation"
+      )[0] as PerformanceNavigationTiming;
+
+      if (navEntry) {
+        setMetrics((prev) => ({
+          ...prev,
+          "Time to Interactive": `${(
+            navEntry.domInteractive - navEntry.startTime
+          ).toFixed(2)} ms`,
+          DOMContentLoaded: `${(
+            navEntry.domContentLoadedEventEnd - navEntry.startTime
+          ).toFixed(2)} ms`,
+          Load: `${(navEntry.loadEventEnd - navEntry.startTime).toFixed(2)} ms`,
+          "Render Time Total": `${(
+            navEntry.loadEventEnd - navEntry.startTime
+          ).toFixed(2)} ms`,
+        }));
+      }
+    };
 
     if (document.readyState === "complete") {
       handleLoad();
@@ -37,35 +78,15 @@ export const CoreWebVitals: React.FC = () => {
       window.addEventListener("load", handleLoad);
     }
 
-    return () => window.removeEventListener("load", handleLoad);
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
   }, []);
-
-  const diffMs = loadTime
-    ? diffMsBetweenDates(refInitialRenderTime.current, loadTime)
-    : null;
 
   return (
     <div className={styles.container}>
-      <CoreWebMetricCard
-        title="Inicio do render"
-        value={convertToLocalTime(refInitialRenderTime.current)}
-      />
-
-      {loadTime && (
-        <CoreWebMetricCard
-          title="Fim do render"
-          value={convertToLocalTime(loadTime)}
-        />
-      )}
-
-      {diffMs && (
-        <CoreWebMetricCard
-          title="Tempo total de renderização"
-          value={diffMs.toString()}
-        />
-      )}
       {Object.entries(metrics).map(([title, value]) => (
-        <CoreWebMetricCard title={title} value={value.toString()} key={title} />
+        <CoreWebMetricCard title={title} value={value} key={title} />
       ))}
     </div>
   );

@@ -1,5 +1,5 @@
 // store.tsx
-import { useCallback, useEffect, useState, ReactNode } from "react";
+import { useCallback, useEffect, useState } from "react";
 import constate from "constate";
 import { Product } from "@/types/product.types";
 import { CartItem } from "@/types/cart-item.types";

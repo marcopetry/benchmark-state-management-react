@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Profiler, useEffect, useRef, useState } from "react";
 
 import { useNavigate, useRouter } from "@tanstack/react-router";
 
@@ -35,12 +35,14 @@ export const Drawer = ({ basePath, useCart }: DrawerProps) => {
   if (!isOpen) return null;
 
   return (
-    <DrawerComp
-      products={items}
-      onClose={() => setIsOpen(false)}
-      onCheckout={() => navigate({ to: `/${basePath}/checkout` })}
-      decreaseQuantity={decreaseQuantity}
-      increaseQuantity={increaseQuantity}
-    />
+    <Profiler id={`${basePath}/drawer`} onRender={console.log}>
+      <DrawerComp
+        products={items}
+        onClose={() => setIsOpen(false)}
+        onCheckout={() => navigate({ to: `/${basePath}/checkout` })}
+        decreaseQuantity={decreaseQuantity}
+        increaseQuantity={increaseQuantity}
+      />
+    </Profiler>
   );
 };

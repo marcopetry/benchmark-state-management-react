@@ -7,7 +7,6 @@ export const QueryControls = () => {
   const search = useSearch({ strict: false });
 
   const [robot, setRobot] = useState(search.robot === "true");
-  const [delay, setDelay] = useState(Number(search.delay) || 1000);
   const [items, setItems] = useState(Number(search.items) || 100);
 
   useEffect(() => {
@@ -16,12 +15,11 @@ export const QueryControls = () => {
         ({
           ...prev,
           robot: String(robot),
-          delay: String(delay),
           items: String(items),
         } as never),
       replace: true,
     });
-  }, [robot, delay, items, navigate]);
+  }, [robot, items, navigate]);
 
   return (
     <div className={styles.container}>
@@ -34,19 +32,6 @@ export const QueryControls = () => {
           />
           Ativar Robô de Teste
         </label>
-      </div>
-
-      <div className={styles.inputGroup}>
-        <label className={styles.label} htmlFor="delay">
-          Delay da API (ms)
-        </label>
-        <input
-          id="delay"
-          type="number"
-          value={delay}
-          onChange={(e) => setDelay(Number(e.target.value))}
-          min={0}
-        />
       </div>
 
       <div className={styles.inputGroup}>

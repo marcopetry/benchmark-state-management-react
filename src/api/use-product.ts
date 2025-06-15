@@ -10,15 +10,14 @@ type UseProductsParams = {
 export const useProducts = ({ setProducts }: UseProductsParams) => {
   const search = useSearch({ strict: false });
 
-  const delay = Number(search.delay) || 1000;
   const amountItems = Number(search.items) || 100;
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await fetchMockData({ delay, amountItems });
+      const data = await fetchMockData({ amountItems });
       setProducts(data);
     };
 
     fetch();
-  }, [delay, amountItems]);
+  }, [amountItems]);
 };

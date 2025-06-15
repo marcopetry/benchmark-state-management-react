@@ -2,12 +2,10 @@ import { Product } from "@/types/product.types";
 import { MOCK } from "./mock";
 
 type MockParams = {
-  delay: number;
   amountItems: number;
 };
 
 export const fetchMockData = ({
-  delay = 1000,
   amountItems = 100,
 }: MockParams): Promise<Product[]> => {
   return new Promise((resolve) => {
@@ -22,6 +20,6 @@ export const fetchMockData = ({
         });
       }
       resolve(result);
-    }, delay);
+    }, 0);
   });
 };

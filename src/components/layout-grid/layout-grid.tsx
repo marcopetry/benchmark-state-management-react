@@ -6,5 +6,9 @@ type LayoutGridProps = {
 };
 
 export const LayoutGrid = ({ children }: LayoutGridProps) => {
-  return <div className={styles.layout}>{children}</div>;
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.layout}>{children}</div>
+    </div>
+  );
 };

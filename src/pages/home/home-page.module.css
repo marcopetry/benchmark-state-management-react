@@ -6,4 +6,5 @@
   max-width: calc(260px * 5 + 24px * 4); /* largura de 5 cards + 4 gaps */
   margin: 0 auto;
   box-sizing: border-box;
+  justify-items: center;
 }

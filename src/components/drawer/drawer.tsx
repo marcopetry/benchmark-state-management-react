@@ -11,21 +11,25 @@ type DrawerProps = {
 };
 
 export const Drawer = ({ basePath, useCart }: DrawerProps) => {
-  const firstRender = useRef(true);
-
   const { increaseQuantity, decreaseQuantity, items } = useCart();
   const [isOpen, setIsOpen] = useState(false);
+  const firstRender = useRef(items.length);
 
   const navigate = useNavigate();
   const router = useRouter();
 
   useEffect(() => {
     const pathname = router.state.location.pathname;
-    if (items.length && !firstRender.current && pathname.includes("product")) {
-      setIsOpen(true);
-    }
 
-    firstRender.current = false;
+    if (
+      items.length &&
+      firstRender.current !== items.length &&
+      pathname.includes("product")
+    ) {
+      setIsOpen(true);
+    } else {
+      firstRender.current = items.length;
+    }
   }, [JSON.stringify(items)]);
 
   if (!isOpen) return null;

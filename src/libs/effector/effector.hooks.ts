@@ -1,5 +1,5 @@
 import { createStore, createEvent } from "effector";
-import { useStore } from "effector-react";
+import { useUnit } from "effector-react";
 import { Product } from "@/types/product.types";
 import { CartItem } from "@/types/cart-item.types";
 
@@ -75,7 +75,7 @@ $cartItems.watch((items) => {
 
 // Hook React para usar o estado e ações do carrinho
 export const useCart = () => {
-  const items = useStore($cartItems);
+  const items = useUnit($cartItems);
 
   const addToCartFn = (product: Product, quantity?: number) =>
     addToCart({ product, quantity });
@@ -101,8 +101,6 @@ export const useCart = () => {
   };
 };
 
-// --- Products Store ---
-
 const setProducts = createEvent<Product[]>();
 
 const $products = createStore<Product[]>([]).on(
@@ -111,7 +109,7 @@ const $products = createStore<Product[]>([]).on(
 );
 
 export const useProductsContext = () => {
-  const products = useStore($products);
+  const products = useUnit($products);
   return {
     products,
     setProducts,

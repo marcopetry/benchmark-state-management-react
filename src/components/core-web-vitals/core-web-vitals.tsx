@@ -51,9 +51,7 @@ export const CoreWebVitals: React.FC = () => {
   // Navegação e tempo de carregamento total (após load)
   useEffect(() => {
     const handleLoad = () => {
-      const navEntry = performance.getEntriesByType(
-        "navigation"
-      )[0] as PerformanceNavigationTiming;
+      const navEntry = performance.getEntriesByType("navigation")[0];
 
       if (navEntry) {
         setMetrics((prev) => ({
@@ -64,7 +62,6 @@ export const CoreWebVitals: React.FC = () => {
           DOMContentLoaded: `${(
             navEntry.domContentLoadedEventEnd - navEntry.startTime
           ).toFixed(2)} ms`,
-          Load: `${(navEntry.loadEventEnd - navEntry.startTime).toFixed(2)} ms`,
           "Render Time Total": `${(
             navEntry.loadEventEnd - navEntry.startTime
           ).toFixed(2)} ms`,

@@ -19,9 +19,7 @@ export const CardProductDefault = ({
 }) => {
   return (
     <CardProduct
-      onClick={() => {
-        console.log(product);
-      }}
+      onClick={() => {}}
       productImage={<CardProductImage product={product} />}
       productTitle={<CardProductTitle product={product} />}
       productDescription={<CardProductDescription product={product} />}

@@ -24,17 +24,6 @@ export const QueryControls = () => {
   return (
     <div className={styles.container}>
       <div className={styles.inputGroup}>
-        <label className={styles.switch}>
-          <input
-            type="checkbox"
-            checked={robot}
-            onChange={(e) => setRobot(e.target.checked)}
-          />
-          Ativar Robô de Teste
-        </label>
-      </div>
-
-      <div className={styles.inputGroup}>
         <label className={styles.label} htmlFor="items">
           Quantidade de Itens
         </label>

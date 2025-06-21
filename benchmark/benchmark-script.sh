@@ -47,8 +47,8 @@ rodar_benchmark() {
   echo "🚀 Iniciando [$tipo]: $lib com $items itens"
 
   docker run --rm \
-    --cpus="2" \
-    --memory="2g" \
+    --cpus="4" \
+    --memory="8g" \
     -e LIB_NAME="$lib" \
     -e ITEMS="$items" \
     -e TOTAL_ACESSOS="$total_acessos" \

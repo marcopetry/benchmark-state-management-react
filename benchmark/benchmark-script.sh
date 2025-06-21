@@ -1,7 +1,20 @@
 #!/bin/bash
 set -e
 
-benchmark_type="${1:-both}" # playground, lighthouse ou both
+benchmark_type="both" # default
+online_flag="false"
+
+# Parse flags
+for arg in "$@"; do
+  case $arg in
+    --online)
+      online_flag="true"
+      ;;
+    playwright|lighthouse|both)
+      benchmark_type="$arg"
+      ;;
+  esac
+done
 
 libs=(
   "react-context-api"
@@ -48,6 +61,7 @@ run_container() {
     -e LIBS="$libs_str" \
     -e ITEMS_LIST="$items_str" \
     -e TOTAL_ACESSOS="$total_acessos" \
+    -e ONLINE="$online_flag" \
     -v "$volume" \
     "$image"
   

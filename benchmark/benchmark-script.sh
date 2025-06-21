@@ -58,6 +58,7 @@ run_container() {
   docker run --rm \
     --cpus="4" \
     --memory="8g" \
+    --network="host" \
     -e LIBS="$libs_str" \
     -e ITEMS_LIST="$items_str" \
     -e TOTAL_ACESSOS="$total_acessos" \

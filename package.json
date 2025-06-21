@@ -8,12 +8,14 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "start": "serve -s dist -l 3000",
     "build:playwright": "sudo docker build -f ./benchmark/Dockerfile.playwright -t benchmark-playwright . --no-cache",
     "test:playwright": "sudo rm -rf metrics-playwright && sudo ./benchmark/benchmark-script.sh playwright",
     "local:test:playwright": "NODE_TLS_REJECT_UNAUTHORIZED=0 pnpm exec playwright install && node ./benchmark/benchmark-playwright.js",
     "build:lighthouse": "sudo docker build -f ./benchmark/Dockerfile.lighthouse -t benchmark-lighthouse . --no-cache",
-    "test:lighthouse": "sudo rm -rf metrics-lighthouse && sudo ./benchmark/benchmark-script.sh lighthouse",
-    "local:test:lighthouse": "NODE_TLS_REJECT_UNAUTHORIZED=0 pnpm exec lighthouse install && ./benchmark/benchmark-lighthouse.js"
+    "test:lighthouse": "npm run test:lighthouse:run && npm run test:lighthouse:post",
+    "test:lighthouse:run": "sudo rm -rf metrics-lighthouse && sudo ./benchmark/benchmark-script.sh lighthouse",
+    "test:lighthouse:post": "sudo rm -rf insights-lighthouse && node benchmark/extract-lighthouse.js"
   },
   "dependencies": {
     "@hookstate/core": "^4.0.2",
@@ -25,12 +27,14 @@
     "constate": "^3.3.3",
     "effector": "^23.3.0",
     "effector-react": "^23.3.0",
+    "fast-glob": "^3.3.3",
     "jotai": "^2.12.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
     "recoil": "^0.7.7",
     "redux-persist": "^6.0.0",
+    "serve": "^14.2.4",
     "use-context-selector": "^2.0.0",
     "valtio": "^2.1.5",
     "web-vitals": "^5.0.2",
@@ -47,9 +51,9 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.0.5",
     "lighthouse": "^12.6.1",
-    "playwright": "^1.45.0"
+    "playwright": "^1.45.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.5"
   }
 }

@@ -11,6 +11,7 @@ const ITEMS_LIST = process.env.ITEMS_LIST
   : [];
 const TOTAL_ACESSOS = Number(process.env.TOTAL_ACESSOS || "5");
 const METRICS_DIR = path.resolve("metrics-lighthouse");
+const ONLINE = process.env.ONLINE === "true"; // lê flag --online como variável de ambiente
 
 if (LIBS.length === 0) {
   console.error("❌ LIBS não definido ou vazio.");
@@ -25,11 +26,19 @@ if (ITEMS_LIST.length === 0) {
 await fs.mkdir(METRICS_DIR, { recursive: true });
 
 async function rodarLighthouse(lib, items, indice) {
-  const url = `https://benchmark-state-management-react.vercel.app/${lib}/products?items=${items}`;
-  const outputDir = path.join(METRICS_DIR, lib, `${items}`);
-  const outputPath = path.join(outputDir, `lighthouse-${indice}.json`);
+  // Definindo a URL dependendo da flag ONLINE
+  const url = ONLINE
+    ? `https://benchmark-state-management-react.vercel.app/${lib}/products?items=${items}`
+    : `http://0.0.0.0:3000/${lib}/products?items=${items}`;
 
-  await fs.mkdir(outputDir, { recursive: true });
+  console.log("Rodando os testes no servidor " + url);
+
+  const outputPath = path.join(
+    METRICS_DIR,
+    `${lib}-qtd-items-${items}-run-${indice}.json`
+  );
+
+  await fs.mkdir(METRICS_DIR, { recursive: true });
 
   const comando = `lighthouse "${url}" \
     --output json \
@@ -41,7 +50,7 @@ async function rodarLighthouse(lib, items, indice) {
 
   try {
     await execAsync(comando);
-    console.log(`✅ ${lib} [${items}] → lighthouse-${indice}.json`);
+    console.log(`✅ ${lib} [${items}] → ${path.basename(outputPath)}`);
   } catch (err) {
     console.error(
       `❌ Erro no lighthouse ${lib} [${items}] índice ${indice}:`,

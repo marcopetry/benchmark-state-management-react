@@ -7,7 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:playwright": "sudo docker build -f ./benchmark/Dockerfile.playwright -t benchmark-playwright . --no-cache",
+    "test:playwright": "sudo rm -rf metrics-playwright && sudo ./benchmark/benchmark-script.sh playwright",
+    "local:test:playwright": "NODE_TLS_REJECT_UNAUTHORIZED=0 pnpm exec playwright install && node ./benchmark/benchmark-playwright.js",
+    "build:lighthouse": "sudo docker build -f ./benchmark/Dockerfile.lighthouse -t benchmark-lighthouse . --no-cache",
+    "test:lighthouse": "sudo rm -rf metrics-lighthouse && sudo ./benchmark/benchmark-script.sh lighthouse",
+    "local:test:lighthouse": "NODE_TLS_REJECT_UNAUTHORIZED=0 pnpm exec lighthouse install && ./benchmark/benchmark-lighthouse.js"
   },
   "dependencies": {
     "@hookstate/core": "^4.0.2",
@@ -42,6 +48,8 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "typescript": "^5.7.3",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "lighthouse": "^12.6.1",
+    "playwright": "^1.45.0"
   }
 }

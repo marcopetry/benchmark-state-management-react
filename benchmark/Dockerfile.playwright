@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/playwright:v1.53.1-jammy
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+RUN npm i -g playwright install --with-deps
+
+RUN mkdir -p /app/metrics-playwright && chmod -R 777 /app/metrics-playwright
+
+CMD ["node", "./benchmark/benchmark-playwright.js"]
+

@@ -1,6 +1,8 @@
 #!/bin/bash
+set -e
 
-# Lista de bibliotecas
+benchmark_type="${1:-both}" # playground, lighthouse ou both
+
 libs=(
   "react-context-api"
   "zustand"
@@ -15,61 +17,49 @@ libs=(
   "constate"
 )
 
-# Quantidade de itens
 items_list=(10 100 1000)
 
-# Configuração dos testes
 total_acessos=5
-paralelo=5
 
-# Tipo de benchmark (playwright, lighthouse ou ambos)
-benchmark_type=${1:-both} # padrão: both
+libs_str=$(IFS=, ; echo "${libs[*]}")
+items_str=$(IFS=, ; echo "${items_list[*]}")
 
-# Função para rodar o benchmark
-rodar_benchmark() {
-  local tipo="$1"
-  local lib="$2"
-  local items="$3"
+run_container() {
+  local tipo=$1
   local image=""
   local volume=""
-
-  if [ "$tipo" == "playwright" ]; then
+  
+  if [[ "$tipo" == "playwright" ]]; then
     image="benchmark-playwright"
     volume="$(pwd)/metrics-playwright:/app/metrics-playwright"
-  elif [ "$tipo" == "lighthouse" ]; then
+  elif [[ "$tipo" == "lighthouse" ]]; then
     image="benchmark-lighthouse"
     volume="$(pwd)/metrics-lighthouse:/app/metrics-lighthouse"
   else
     echo "❌ Tipo inválido: $tipo"
-    return 1
+    exit 1
   fi
-
-  echo "🚀 Iniciando [$tipo]: $lib com $items itens"
-
+  
+  echo "🚀 Iniciando container $tipo..."
+  
   docker run --rm \
     --cpus="4" \
     --memory="8g" \
-    -e LIB_NAME="$lib" \
-    -e ITEMS="$items" \
+    -e LIBS="$libs_str" \
+    -e ITEMS_LIST="$items_str" \
     -e TOTAL_ACESSOS="$total_acessos" \
-    -e PARALELO="$paralelo" \
     -v "$volume" \
     "$image"
-
-  echo "✅ Finalizado [$tipo]: $lib com $items itens"
+  
+  echo "✅ Container $tipo finalizado."
 }
 
-# Loop por todas as libs e quantidades
-for lib in "${libs[@]}"; do
-  for items in "${items_list[@]}"; do
-    if [[ "$benchmark_type" == "playwright" || "$benchmark_type" == "both" ]]; then
-      rodar_benchmark "playwright" "$lib" "$items"
-    fi
+if [[ "$benchmark_type" == "playwright" || "$benchmark_type" == "both" ]]; then
+  run_container "playwright"
+fi
 
-    if [[ "$benchmark_type" == "lighthouse" || "$benchmark_type" == "both" ]]; then
-      rodar_benchmark "lighthouse" "$lib" "$items"
-    fi
-  done
-done
+if [[ "$benchmark_type" == "lighthouse" || "$benchmark_type" == "both" ]]; then
+  run_container "lighthouse"
+fi
 
-echo "🏁 Todos os benchmarks foram concluídos."
+echo "🏁 Todos os benchmarks finalizados."

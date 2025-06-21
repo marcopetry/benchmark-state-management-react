@@ -1,18 +1,24 @@
-import { exec } from "child_process";
 import fs from "fs/promises";
 import path from "path";
+import { exec } from "child_process";
 import { promisify } from "util";
 
 const execAsync = promisify(exec);
 
-const LIB_NAME = process.env.LIB_NAME;
-const ITEMS = Number(process.env.ITEMS || "100");
+const LIBS = process.env.LIBS ? process.env.LIBS.split(",") : [];
+const ITEMS_LIST = process.env.ITEMS_LIST
+  ? process.env.ITEMS_LIST.split(",").map(Number)
+  : [];
 const TOTAL_ACESSOS = Number(process.env.TOTAL_ACESSOS || "5");
-const PARALELO = Number(process.env.PARALELO || "5");
 const METRICS_DIR = path.resolve("metrics-lighthouse");
 
-if (!LIB_NAME) {
-  console.error("❌ LIB_NAME não definido.");
+if (LIBS.length === 0) {
+  console.error("❌ LIBS não definido ou vazio.");
+  process.exit(1);
+}
+
+if (ITEMS_LIST.length === 0) {
+  console.error("❌ ITEMS_LIST não definido ou vazio.");
   process.exit(1);
 }
 
@@ -26,37 +32,35 @@ async function rodarLighthouse(lib, items, indice) {
   await fs.mkdir(outputDir, { recursive: true });
 
   const comando = `lighthouse "${url}" \
-  --output json \
-  --output-path "${outputPath}" \
-  --quiet \
-  --chrome-flags="--headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-setuid-sandbox"`;
+    --output json \
+    --output-path "${outputPath}" \
+    --quiet \
+    --only-categories=performance \
+    --timeout=180 \
+    --chrome-flags="--headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-setuid-sandbox"`;
 
   try {
     await execAsync(comando);
     console.log(`✅ ${lib} [${items}] → lighthouse-${indice}.json`);
   } catch (err) {
     console.error(
-      `❌ Erro no lighthouse ${indice}:`,
+      `❌ Erro no lighthouse ${lib} [${items}] índice ${indice}:`,
       err.stderr || err.message
     );
   }
 }
 
 async function executarTestes() {
-  let emExecucao = [];
-
-  for (let i = 0; i < TOTAL_ACESSOS; i++) {
-    const execucao = rodarLighthouse(LIB_NAME, ITEMS, i);
-    emExecucao.push(execucao);
-
-    if (emExecucao.length >= PARALELO) {
-      await Promise.all(emExecucao);
-      emExecucao = [];
+  for (const lib of LIBS) {
+    for (const items of ITEMS_LIST) {
+      console.log(`🚀 Iniciando testes para ${lib} com ${items} itens`);
+      for (let i = 0; i < TOTAL_ACESSOS; i++) {
+        await rodarLighthouse(lib, items, i);
+      }
+      console.log(`🏁 Finalizado ${lib} com ${items} itens`);
     }
   }
-
-  await Promise.all(emExecucao);
-  console.log(`🏁 Concluído: ${LIB_NAME} [${ITEMS}]`);
+  console.log("🎉 Todos os benchmarks foram concluídos!");
 }
 
 await executarTestes();

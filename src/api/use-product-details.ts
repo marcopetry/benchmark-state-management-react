@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import { fetchMockData } from "./api";
+import { fetchMockDataSync } from "./api";
 import { Product } from "@/types/product.types";
 
 export const useProductDetails = ({ id }: { id: string }) => {
   const [product, setProduct] = useState<Product | undefined>();
   useEffect(() => {
-    const fetch = async () => {
-      const data = await fetchMockData();
-      setProduct(data.find((d) => d.id.toString() === id));
-    };
-
-    fetch();
+    const data = fetchMockDataSync({ amountItems: 99999 });
+    setProduct(data.find((d) => d.id.toString() === id));
   }, []);
 
   return { product };

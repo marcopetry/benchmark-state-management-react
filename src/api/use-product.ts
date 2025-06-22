@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fetchMockData } from "./api";
+import { fetchMockDataSync } from "./api";
 import { Product } from "@/types/product.types";
 import { useSearch } from "@tanstack/react-router";
 
@@ -13,11 +13,7 @@ export const useProducts = ({ setProducts }: UseProductsParams) => {
   const amountItems = Number(search.items) || 100;
 
   useEffect(() => {
-    const fetch = async () => {
-      const data = await fetchMockData({ amountItems });
-      setProducts(data);
-    };
-
-    fetch();
+    const data = fetchMockDataSync({ amountItems });
+    setProducts(data);
   }, [amountItems]);
 };

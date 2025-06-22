@@ -2,65 +2,78 @@ import { chromium } from "playwright";
 import fs from "fs/promises";
 import path from "path";
 
-const LIB_NAME = process.env.LIB_NAME;
-const ITEMS = Number(process.env.ITEMS || "100");
+const LIBS = process.env.LIBS ? process.env.LIBS.split(",") : [];
+const ITEMS_LIST = process.env.ITEMS_LIST
+  ? process.env.ITEMS_LIST.split(",").map(Number)
+  : [];
 const TOTAL_ACESSOS = Number(process.env.TOTAL_ACESSOS || "5");
-const PARALELO = Number(process.env.PARALELO || "5");
+const ONLINE = process.env.ONLINE === "true";
 const METRICS_DIR = path.resolve("metrics-playwright");
 
-if (!LIB_NAME) {
-  console.error("❌ LIB_NAME não definido.");
+if (LIBS.length === 0) {
+  console.error("❌ LIBS não definido ou vazio.");
+  process.exit(1);
+}
+
+if (ITEMS_LIST.length === 0) {
+  console.error("❌ ITEMS_LIST não definido ou vazio.");
   process.exit(1);
 }
 
 await fs.mkdir(METRICS_DIR, { recursive: true });
 
-async function visitar(lib, items, indice) {
+async function rodarPlaywright(lib, items, indice) {
+  const url = ONLINE
+    ? `https://benchmark-state-management-react.vercel.app/${lib}/products?items=${items}`
+    : `http://0.0.0.0:3000/${lib}/products?items=${items}`;
+
+  console.log("Visitando página no servidor " + url);
+
   const browser = await chromium.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
 
-  const url = `https://benchmark-state-management-react.vercel.app/${lib}/products?items=${items}`;
-  await page.goto(url, { waitUntil: "domcontentloaded" });
-  await page.waitForTimeout(3000);
+  try {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(3000);
 
-  const firstButton = await page
-    .locator("button", { hasText: "Adicionar ao Carrinho" })
-    .first();
-  await firstButton.click();
+    const firstButton = await page
+      .locator("button", { hasText: "Adicionar ao Carrinho" })
+      .first();
+    await firstButton.click();
 
-  // Espera 1 segundo após o clique
-  await page.waitForTimeout(1000);
+    await page.waitForTimeout(1000);
 
-  const metrics = await page.evaluate(() => {
-    return window.__CWV_METRICS__;
-  });
+    const metrics = await page.evaluate(() => window.__CWV_METRICS__);
 
-  const dir = path.join(METRICS_DIR, lib, `${items}`);
-  await fs.mkdir(dir, { recursive: true });
+    const outputPath = path.join(
+      METRICS_DIR,
+      `${lib}-qtd-items-${items}-run-${indice}.json`
+    );
 
-  const filePath = path.join(dir, `metric-${indice}.json`);
-  await fs.writeFile(filePath, JSON.stringify(metrics, null, 2));
-
-  console.log(`✅ ${lib} [${items}] → metric-${indice}.json`);
-  await browser.close();
+    await fs.writeFile(outputPath, JSON.stringify(metrics, null, 2));
+    console.log(`✅ ${lib} [${items}] → ${path.basename(outputPath)}`);
+  } catch (err) {
+    console.error(
+      `❌ Erro no playwright ${lib} [${items}] índice ${indice}:`,
+      err.message
+    );
+  } finally {
+    await browser.close();
+  }
 }
 
 async function executarTestes() {
-  let emExecucao = [];
-
-  for (let i = 0; i < TOTAL_ACESSOS; i++) {
-    const execucao = visitar(LIB_NAME, ITEMS, i);
-    emExecucao.push(execucao);
-
-    if (emExecucao.length >= PARALELO) {
-      await Promise.all(emExecucao);
-      emExecucao = [];
+  for (const lib of LIBS) {
+    for (const items of ITEMS_LIST) {
+      console.log(`🚀 Iniciando testes para ${lib} com ${items} itens`);
+      for (let i = 0; i < TOTAL_ACESSOS; i++) {
+        await rodarPlaywright(lib, items, i);
+      }
+      console.log(`🏁 Finalizado ${lib} com ${items} itens`);
     }
   }
-
-  await Promise.all(emExecucao);
-  console.log(`🏁 Concluído: ${LIB_NAME} [${ITEMS}]`);
+  console.log("🎉 Todos os benchmarks Playwright foram concluídos!");
 }
 
 await executarTestes();

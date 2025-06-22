@@ -35,14 +35,10 @@ npm build
 npm serve
 ```
 
-```bash
-npm run build
-```
-
 > Gera o bundle da aplicação com Vite para servir localmente ou ser usado pelos containers.
 
 - O build é salvo em `dist/`
-- Usado quando a aplicação será servida via `vite preview` ou pelo container Lighthouse/Playwright
+- Usado quando a aplicação será servida via `npm run serve` ou pelo container Lighthouse/Playwright
 - **Necessário antes de qualquer benchmark local**
 
 ---

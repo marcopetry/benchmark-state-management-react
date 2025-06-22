@@ -1,0 +1,40 @@
+.container {
+  padding: 24px;
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.title {
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+}
+
+.table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: #fafafa;
+  transition: background-color 0.3s ease;
+}

@@ -17,6 +17,7 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
+import { PageInsights } from "@/pages/page-insights";
 
 // Desestruturação das páginas de cada state manager
 const {
@@ -116,6 +117,12 @@ const homeRoute = createRoute({
   component: HomePage,
 });
 
+const insightsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/insights",
+  component: PageInsights,
+});
+
 const contextRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "react-context-api",
@@ -184,6 +191,7 @@ const constateRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   homeRoute,
+  insightsRoute,
   contextRoute.addChildren([
     createRoute({
       path: "products",

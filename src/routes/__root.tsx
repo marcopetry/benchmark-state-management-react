@@ -17,7 +17,7 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
-import { PageInsights } from "@/pages/page-insights";
+import { PageInsights } from "@/pages/page-insights-lighthouse";
 
 // Desestruturação das páginas de cada state manager
 const {
@@ -119,7 +119,7 @@ const homeRoute = createRoute({
 
 const insightsRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/insights",
+  path: "/insights-lighthouse",
   component: PageInsights,
 });
 

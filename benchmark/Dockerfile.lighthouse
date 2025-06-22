@@ -1,34 +1,45 @@
-FROM node:20-slim
+# Base Node 18 Bullseye estável
+FROM node:18-bullseye
 
-# Dependências para o Chrome headless
+# Instala dependências para Chrome headless
 RUN apt-get update && apt-get install -y \
-  wget \
-  ca-certificates \
-  fonts-liberation \
-  libappindicator3-1 \
-  libasound2 \
-  libatk-bridge2.0-0 \
-  libnspr4 \
-  libnss3 \
-  libxss1 \
-  xdg-utils \
-  && rm -rf /var/lib/apt/lists/*
-
-# Instala o Chrome
-RUN apt-get update && apt-get install -y wget gnupg ca-certificates && \
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /usr/share/keyrings/google-chrome.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update && apt-get install -y google-chrome-stable && \
+    wget \
+    gnupg2 \
+    fonts-liberation \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    xdg-utils \
+    libgbm1 \
+    libpango1.0-0 \
+    libgtk-3-0 \
+    libxss1 \
+    --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
+
+# Adiciona a chave pública do Google Chrome e o repo
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+
+# Instala o Google Chrome estável (exemplo versão fixa - troque se quiser)
+RUN apt-get update && apt-get install -y google-chrome-stable && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
-RUN npm i -g lighthouse
+
+# Instala o Lighthouse versão 12.6.1 globalmente
+RUN npm install -g lighthouse@12.6.1
 
 COPY . .
 
-RUN mkdir -p /app/metrics-lighthouse && chmod -R 777 /app/metrics-lighthouse
+RUN mkdir -p metrics-lighthouse && chmod -R 777 metrics-lighthouse
 
-CMD ["node", "./benchmark/benchmark-lighthouse.js"]
+CMD ["node", "benchmark/benchmark-lighthouse.js"]

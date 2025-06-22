@@ -1,4 +1,4 @@
-import styles from "./page-insights.module.css";
+import styles from "./page-insights-lighthouse.module.css";
 import {
   LineChart,
   Line,
@@ -30,7 +30,7 @@ const colors = {
   zustand: "#d88484",
 };
 
-export function PageInsights() {
+export function PageInsightsLighthouse() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>

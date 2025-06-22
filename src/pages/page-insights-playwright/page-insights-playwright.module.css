@@ -1,0 +1,36 @@
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.selectLabel {
+  font-size: 16px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+.th,
+.td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.th {
+  background-color: #f2f2f2;
+}
+
+.trRow {
+  border-bottom: 1px solid #ddd;
+}

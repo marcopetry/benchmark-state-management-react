@@ -17,7 +17,8 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
-import { PageInsights } from "@/pages/page-insights-lighthouse";
+import { PageInsightsLighthouse } from "@/pages/page-insights-lighthouse";
+import { PageInsightsPlaywright } from "@/pages/page-insights-playwright/page-insights-playwright";
 
 // Desestruturação das páginas de cada state manager
 const {
@@ -117,10 +118,16 @@ const homeRoute = createRoute({
   component: HomePage,
 });
 
-const insightsRoute = createRoute({
+const insightsLighthouseRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/insights-lighthouse",
-  component: PageInsights,
+  component: PageInsightsLighthouse,
+});
+
+const insightsPlaywrightRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/insights-playwright",
+  component: PageInsightsPlaywright,
 });
 
 const contextRoute = createRoute({
@@ -191,7 +198,8 @@ const constateRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   homeRoute,
-  insightsRoute,
+  insightsLighthouseRoute,
+  insightsPlaywrightRoute,
   contextRoute.addChildren([
     createRoute({
       path: "products",

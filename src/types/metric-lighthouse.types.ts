@@ -1,4 +1,4 @@
-export type MetricLib = {
+export type MetricLighthouse = {
   lib: string;
   items: number;
   runs: number;

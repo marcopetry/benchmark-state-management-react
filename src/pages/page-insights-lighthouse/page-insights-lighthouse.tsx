@@ -11,9 +11,10 @@ import {
 } from "recharts";
 
 import * as dataDefault from "../../../insights-lighthouse/summary-metrics.json";
-import { MetricLib } from "@/types/metric-lib.types";
+import { MetricLighthouse } from "@/types/metric-lighthouse.types";
 
-const data = (dataDefault as unknown as { default: MetricLib[] }).default;
+const data = (dataDefault as unknown as { default: MetricLighthouse[] })
+  .default;
 
 // Organiza os dados por lib para gráficos com várias linhas
 const groupedData = data.reduce((acc, item) => {

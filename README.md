@@ -27,6 +27,14 @@ Todos os testes e processamento de resultados podem ser feitos com **scripts `np
 
 ### `npm run build`
 
+## Se for rodar local
+
+```bash
+npm i
+npm build
+npm serve
+```
+
 ```bash
 npm run build
 ```

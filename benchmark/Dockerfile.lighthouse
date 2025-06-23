@@ -40,6 +40,6 @@ RUN npm install -g lighthouse@12.6.1
 
 COPY . .
 
-RUN mkdir -p metrics-lighthouse && chmod -R 777 metrics-lighthouse
+#RUN mkdir -p metrics-lighthouse && chmod -R 777 metrics-lighthouse
 
 CMD ["node", "benchmark/benchmark-lighthouse.js"]

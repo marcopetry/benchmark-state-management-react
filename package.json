@@ -15,7 +15,7 @@
     "test:playwright:post": "sudo rm -rf insights-playwright && node benchmark/extract-playwright.js",
     "build:lighthouse": "sudo docker build -f ./benchmark/Dockerfile.lighthouse -t benchmark-lighthouse . --no-cache",
     "test:lighthouse": "npm run test:lighthouse:run && npm run test:lighthouse:post",
-    "test:lighthouse:run": "sudo rm -rf metrics-lighthouse && sudo ./benchmark/benchmark-script.sh lighthouse",
+    "test:lighthouse:run": "sudo ./benchmark/benchmark-script.sh lighthouse",
     "test:lighthouse:post": "sudo rm -rf insights-lighthouse && node benchmark/extract-lighthouse.js"
   },
   "dependencies": {

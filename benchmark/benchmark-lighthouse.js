@@ -5,40 +5,38 @@ import { promisify } from "util";
 
 const execAsync = promisify(exec);
 
-const LIBS = process.env.LIBS ? process.env.LIBS.split(",") : [];
-const ITEMS_LIST = process.env.ITEMS_LIST
-  ? process.env.ITEMS_LIST.split(",").map(Number)
-  : [];
-const TOTAL_ACESSOS = Number(process.env.TOTAL_ACESSOS || "5");
+const LIBS = [
+  "react-context-api",
+  "zustand",
+  "jotai",
+  "valtio",
+  "recoil",
+  "effector",
+  "redux-toolkit",
+  "rematch",
+  "hookstate",
+  "use-context-selector",
+  "constate",
+];
+
+const ITEMS_LIST = [10, 100, 1000];
+
+// ✅ Lendo da variável de ambiente, com fallback para 2
+const TOTAL_ACESSOS = parseInt(process.env.TOTAL_ACESSOS || "2", 10);
+const ONLINE = process.env.ONLINE === "true";
+
 const METRICS_DIR = path.resolve("metrics-lighthouse");
-const ONLINE = process.env.ONLINE === "true"; // lê flag --online como variável de ambiente
-
-if (LIBS.length === 0) {
-  console.error("❌ LIBS não definido ou vazio.");
-  process.exit(1);
-}
-
-if (ITEMS_LIST.length === 0) {
-  console.error("❌ ITEMS_LIST não definido ou vazio.");
-  process.exit(1);
-}
-
 await fs.mkdir(METRICS_DIR, { recursive: true });
 
 async function rodarLighthouse(lib, items, indice) {
-  // Definindo a URL dependendo da flag ONLINE
   const url = ONLINE
     ? `https://benchmark-state-management-react.vercel.app/${lib}/products?items=${items}`
     : `http://0.0.0.0:3000/${lib}/products?items=${items}`;
-
-  console.log("Rodando os testes no servidor " + url);
 
   const outputPath = path.join(
     METRICS_DIR,
     `${lib}-qtd-items-${items}-run-${indice}.json`
   );
-
-  await fs.mkdir(METRICS_DIR, { recursive: true });
 
   const comando = `lighthouse "${url}" \
     --output json \

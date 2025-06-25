@@ -6,9 +6,9 @@ import { promisify } from "util";
 const execAsync = promisify(exec);
 
 const LIBS = [
-//  "react-context-api",
-//  "zustand",
-//  "jotai",
+  "react-context-api",
+  "zustand",
+  "jotai",
   "valtio",
   "recoil",
   "effector",
@@ -22,7 +22,7 @@ const LIBS = [
 const ITEMS_LIST = [10, 100, 1000];
 
 // ✅ Lendo da variável de ambiente, com fallback para 2
-const TOTAL_ACESSOS = 20 // parseInt(process.env.TOTAL_ACESSOS || "20", 10);
+const TOTAL_ACESSOS = 20; // parseInt(process.env.TOTAL_ACESSOS || "20", 10);
 const ONLINE = process.env.ONLINE === "true";
 
 const METRICS_DIR = path.resolve("metrics-lighthouse");
